@@ -76,7 +76,7 @@ export default function Testimonials() {
                         What Our Clients <span className="text-gradient">Say</span>
                     </h2>
                     <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                        Don't just take our word for it — here's what our clients say about working with Arshinox.
+                        Don't just take our word for it — here's what our clients say about working with Arshionix.
                     </p>
                 </div>
 

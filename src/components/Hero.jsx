@@ -86,7 +86,7 @@ export default function Hero() {
 
                         {/* Description */}
                         <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-                            <strong className="text-foreground">Arshinox</strong> is a full-service digital agency delivering world-class web applications, scalable software, native Android apps, and stunning UI/UX designs — all under one roof.
+                            <strong className="text-foreground">Arshionix</strong> is a full-service digital agency delivering world-class web applications, scalable software, native Android apps, and stunning UI/UX designs — all under one roof.
                         </p>
 
                         {/* CTAs */}
@@ -136,7 +136,7 @@ export default function Hero() {
                             <div className="absolute inset-8 rounded-full bg-gradient-to-br from-brand-500 via-violet-600 to-brand-700 p-1 shadow-2xl shadow-brand-500/40 animate-float">
                                 <div className="w-full h-full rounded-full bg-gradient-to-b from-brand-900 to-background flex flex-col items-center justify-center gap-1">
                                     <span className="font-heading font-black text-6xl text-gradient select-none leading-none">AS</span>
-                                    <span className="font-heading font-bold text-sm text-white/60 tracking-[0.2em]">ARSHIONIX SOLUTIONS</span>
+                                    <span className="font-heading font-bold text-sm text-white/60 tracking-[0.2em]">Arshionix ONIX SOLUTIONS</span>
                                 </div>
                             </div>
 

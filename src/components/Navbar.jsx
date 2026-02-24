@@ -49,7 +49,7 @@ export default function Navbar() {
                             <span className="text-white font-heading font-black text-base">A</span>
                         </div>
                         <span className="font-heading font-bold text-xl tracking-tight">
-                            Arshi<span className="text-gradient">nix</span>
+                            Arshi<span className="text-gradient">onix</span>
                         </span>
                     </a>
 

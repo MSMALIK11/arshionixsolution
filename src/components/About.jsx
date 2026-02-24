@@ -30,7 +30,7 @@ export default function About() {
                                     <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-brand-500 to-violet-600 mx-auto mb-6 flex items-center justify-center shadow-xl">
                                         <span className="font-heading font-black text-5xl text-white">A</span>
                                     </div>
-                                    <h3 className="font-heading text-2xl font-bold mb-1">Arshinox</h3>
+                                    <h3 className="font-heading text-2xl font-bold mb-1">Arshionix</h3>
                                     <p className="text-muted-foreground text-sm mb-4">Digital Agency & Software Studio</p>
 
                                     {/* Values */}
@@ -67,7 +67,7 @@ export default function About() {
                         </h2>
                         <div className="space-y-4 text-muted-foreground leading-relaxed mb-8">
                             <p>
-                                <strong className="text-foreground">Arshinox</strong> is a full-service digital agency built by a team of passionate developers, designers, and engineers who love solving complex problems with elegant solutions.
+                                <strong className="text-foreground">Arshionix nox</strong> is a full-service digital agency built by a team of passionate developers, designers, and engineers who love solving complex problems with elegant solutions.
                             </p>
                             <p>
                                 Founded by Shoaibi, our agency has grown into a collaborative team delivering world-class web apps, robust software systems, native Android applications, and intuitive UI/UX designs for clients across the globe.

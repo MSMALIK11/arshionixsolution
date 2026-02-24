@@ -18,7 +18,7 @@ export default function Contact() {
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
     const contactInfo = [
-        { icon: Mail, label: "Email Us", value: "hello@arshinox.com", href: "mailto:hello@arshinox.com" },
+        { icon: Mail, label: "Email Us", value: "hello@Arshionix nox.com", href: "mailto:hello@Arshionix nox.com" },
         { icon: Phone, label: "Call Us", value: "+92 300 1234567", href: "tel:+923001234567" },
         { icon: MapPin, label: "Location", value: "Pakistan — Remote Worldwide", href: "#" },
         { icon: Clock, label: "Response Time", value: "Within 24 hours", href: "#" },

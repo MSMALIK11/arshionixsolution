@@ -28,7 +28,7 @@ const team = [
         icon: Palette,
         gradient: "from-pink-400 to-rose-500",
         initials: "ZM",
-        bio: "Creative force behind Arshinox's beautiful interfaces. Specializes in user research, design systems, and Figma prototypes that convert.",
+        bio: "Creative force behind Arshionix nox's beautiful interfaces. Specializes in user research, design systems, and Figma prototypes that convert.",
         socials: { github: "#", linkedin: "#", twitter: "#" },
     },
     {

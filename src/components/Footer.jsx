@@ -23,11 +23,11 @@ export default function Footer() {
                                 <span className="text-white font-heading font-black text-base">A</span>
                             </div>
                             <span className="font-heading font-bold text-xl">
-                                Arshi<span className="text-gradient">nix</span>
+                                Arshionix <span className="text-gradient">nix</span>
                             </span>
                         </div>
                         <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                            Arshionix is a full-service digital agency building world-class web apps, software, mobile apps, and UI/UX designs for clients worldwide.
+                            Arshionix  is a full-service digital agency building world-class web apps, software, mobile apps, and UI/UX designs for clients worldwide.
                         </p>
                         <div className="flex gap-3">
                             {[Github, Linkedin, Twitter].map((Icon, i) => (
@@ -81,7 +81,7 @@ export default function Footer() {
             {/* Bottom bar */}
             <div className="border-t border-border">
                 <div className="container mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
-                    <p>© 2025 Arshinox. All rights reserved.</p>
+                    <p>© 2025 Arshionix. All rights reserved.</p>
                     <p className="flex items-center gap-1.5">
                         Built with <Heart className="w-3.5 h-3.5 text-red-400 fill-current" /> by the Arshionix Team
                     </p>

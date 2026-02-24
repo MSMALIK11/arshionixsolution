@@ -100,7 +100,7 @@ export default function Services() {
                         Our Core <span className="text-gradient">Services</span>
                     </h2>
                     <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                        From concept to deployment, Arshionix delivers end-to-end digital solutions that drive results and delight users.
+                        From concept to deployment, Arshionix onix delivers end-to-end digital solutions that drive results and delight users.
                     </p>
                 </div>
 
