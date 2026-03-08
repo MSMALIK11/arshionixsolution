@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   MapPin,
@@ -205,9 +206,13 @@ function CultureGallery() {
               i === active ? "opacity-100 scale-100" : "opacity-0 scale-110"
             }`}
           >
-            <div className="w-full h-full bg-gradient-to-br from-brand-500/20 to-violet-600/20 flex items-center justify-center">
-              <span className="text-muted-foreground text-sm">{img.label}</span>
-            </div>
+            <Image
+              src={img.src}
+              alt={img.label}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
           </div>
         ))}
         <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-5">
@@ -224,12 +229,19 @@ function CultureGallery() {
         {cultureImages.map((img, i) => (
           <button
             key={img.src}
+            type="button"
             onClick={() => setActive(i)}
-            className={`flex-1 aspect-video rounded-xl overflow-hidden border-2 transition-all duration-300 ${
+            className={`relative flex-1 aspect-video rounded-xl overflow-hidden border-2 transition-all duration-300 ${
               i === active ? "border-brand-500 opacity-100 scale-105" : "border-border opacity-50 hover:opacity-75"
             }`}
           >
-            <div className="w-full h-full bg-gradient-to-br from-brand-500/10 to-violet-600/10" />
+            <Image
+              src={img.src}
+              alt={img.label}
+              fill
+              className="object-cover"
+              sizes="200px"
+            />
           </button>
         ))}
       </div>

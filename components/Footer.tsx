@@ -1,27 +1,28 @@
 "use client";
 
-import { Github, Linkedin, Twitter, Heart } from "lucide-react";
+import Link from "next/link";
+import { Github, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { site } from "@/lib/site";
 
-const footerLinks: Record<string, { label: string; href: string }[]> = {
+const footerLinks: Record<string, { label: string; href: string; external?: boolean }[]> = {
   Services: [
-    { label: "Web Development", href: "#services" },
-    { label: "Software Development", href: "#services" },
-    { label: "Android Development", href: "#services" },
-    { label: "UI/UX Design", href: "#services" },
+    { label: "Web Development", href: "/services" },
+    { label: "Software Development", href: "/services" },
+    { label: "Android Development", href: "/services" },
+    { label: "UI/UX Design", href: "/services" },
   ],
   Company: [
-    { label: "About Us", href: "#about" },
-    { label: "Our Work", href: "#portfolio" },
-    { label: "Process", href: "#process" },
-    { label: "Contact", href: "#contact" },
+    { label: "About Us", href: "/about" },
+    { label: "Our Work", href: "/portfolio" },
+    { label: "Process", href: "/#process" },
+    { label: "Contact", href: "/contact" },
   ],
   Connect: [
-    { label: "GitHub", href: site.social.github },
-    { label: "LinkedIn", href: site.social.linkedin },
-    { label: "Twitter", href: site.social.twitter },
-    { label: "Email", href: "mailto:info@arshionix.com" },
+    { label: "GitHub", href: site.social.github, external: true },
+    { label: "LinkedIn", href: site.social.linkedin, external: true },
+    { label: "Twitter", href: site.social.twitter, external: true },
+    { label: "Email", href: "mailto:info@arshionix.com", external: true },
   ],
 };
 
@@ -32,7 +33,7 @@ export default function Footer() {
     if (href.startsWith("#")) {
       const el = document.querySelector(href);
       if (el) el.scrollIntoView({ behavior: "smooth" });
-    } else {
+    } else if (href.startsWith("mailto:") || href.startsWith("http")) {
       window.open(href, "_blank", "noopener,noreferrer");
     }
   };
@@ -88,15 +89,24 @@ export default function Footer() {
             <div key={category}>
               <h4 className="font-heading font-bold text-sm mb-4 text-foreground">{category}</h4>
               <ul className="space-y-2.5">
-                {links.map(({ label, href }) => (
+                {links.map(({ label, href, external }) => (
                   <li key={label}>
-                    <Button
-                      variant="ghost"
-                      className="text-muted-foreground hover:text-brand-400 p-0 h-auto font-normal text-sm"
-                      onClick={() => handleNav(href)}
-                    >
-                      {label}
-                    </Button>
+                    {external || href.startsWith("#") || href.startsWith("mailto:") ? (
+                      <Button
+                        variant="ghost"
+                        className="text-muted-foreground hover:text-brand-400 p-0 h-auto font-normal text-sm"
+                        onClick={() => handleNav(href)}
+                      >
+                        {label}
+                      </Button>
+                    ) : (
+                      <Link
+                        href={href}
+                        className="text-muted-foreground hover:text-brand-400 text-sm font-normal transition-colors"
+                      >
+                        {label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

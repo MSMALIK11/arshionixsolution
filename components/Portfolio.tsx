@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ExternalLink, Globe, Smartphone, Layers, Palette, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ const projects = [
     color: "from-brand-400 to-brand-600",
     bg: "from-brand-500/10 to-brand-600/5",
     liveUrl: null as string | null,
+    screenshot: null as string | null,
   },
   {
     title: "Task Management SaaS",
@@ -29,6 +31,7 @@ const projects = [
     color: "from-violet-400 to-violet-600",
     bg: "from-violet-500/10 to-violet-600/5",
     liveUrl: null as string | null,
+    screenshot: null as string | null,
   },
   {
     title: "Food Delivery App",
@@ -40,6 +43,7 @@ const projects = [
     color: "from-green-400 to-emerald-600",
     bg: "from-green-500/10 to-emerald-600/5",
     liveUrl: null as string | null,
+    screenshot: null as string | null,
   },
   {
     title: "Fintech Dashboard UI",
@@ -51,6 +55,7 @@ const projects = [
     color: "from-pink-400 to-rose-500",
     bg: "from-pink-500/10 to-rose-600/5",
     liveUrl: null as string | null,
+    screenshot: null as string | null,
   },
   {
     title: "Real Estate Portal",
@@ -62,6 +67,7 @@ const projects = [
     color: "from-amber-400 to-orange-500",
     bg: "from-amber-500/10 to-orange-600/5",
     liveUrl: null as string | null,
+    screenshot: null as string | null,
   },
   {
     title: "Fitness Tracker App",
@@ -73,11 +79,12 @@ const projects = [
     color: "from-cyan-400 to-blue-600",
     bg: "from-cyan-500/10 to-blue-600/5",
     liveUrl: null as string | null,
+    screenshot: null as string | null,
   },
 ];
 
 function ProjectCard({ project }: { project: (typeof projects)[0] }) {
-  const { icon: Icon, title, category, description, outcome, tags, color, bg, liveUrl } = project;
+  const { icon: Icon, title, category, description, outcome, tags, color, bg, liveUrl, screenshot } = project;
   return (
     <article
       className={cn(
@@ -91,11 +98,23 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
         <span className="text-xs font-semibold text-muted-foreground">Coming soon</span>
       </div>
 
-      {/* Header with icon */}
-      <div className={cn("relative h-36 bg-gradient-to-br flex items-center justify-center overflow-hidden", color)}>
-        <div className="absolute inset-0 bg-black/10" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.2)_100%)]" />
-        <Icon className="w-14 h-14 text-white/90 drop-shadow-sm relative z-10" />
+      {/* Header: screenshot or icon */}
+      <div className={cn("relative h-36 flex items-center justify-center overflow-hidden", !screenshot && color)}>
+        {screenshot ? (
+          <Image
+            src={screenshot}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 400px"
+          />
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-black/10" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.2)_100%)]" />
+            <Icon className="w-14 h-14 text-white/90 drop-shadow-sm relative z-10" />
+          </>
+        )}
         <span className="absolute bottom-3 left-4 px-2.5 py-1 rounded-md bg-black/40 backdrop-blur-sm text-white text-[10px] font-semibold uppercase tracking-wider">
           {category}
         </span>

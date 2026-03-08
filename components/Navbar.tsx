@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#services", label: "Services" },
-  { href: "#about", label: "About" },
-  { href: "#portfolio", label: "Work" },
-  { href: "#process", label: "Process" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home", hash: "#home" },
+  { href: "/services", label: "Services", hash: "#services" },
+  { href: "/about", label: "About", hash: "#about" },
+  { href: "/portfolio", label: "Work", hash: "#portfolio" },
+  { href: "/", label: "Process", hash: "#process" },
+  { href: "/contact", label: "Contact", hash: "#contact" },
 ];
 
 export default function Navbar() {
@@ -27,14 +27,18 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (link: (typeof navLinks)[0]) => {
     setMobileOpen(false);
-    if (pathname !== "/") {
-      window.location.href = `/${href}`;
+    if (pathname === link.href && link.hash) {
+      const el = document.querySelector(link.hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
       return;
     }
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (link.hash && link.href === "/") {
+      window.location.href = `/${link.hash}`;
+      return;
+    }
+    window.location.href = link.href;
   };
 
   return (
@@ -48,12 +52,8 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick("#home");
-            }}
+          <Link
+            href="/"
             className="flex items-center gap-2 group"
           >
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-violet-600 flex items-center justify-center shadow-lg group-hover:shadow-brand-500/40 transition-shadow">
@@ -62,13 +62,13 @@ export default function Navbar() {
             <span className="font-heading font-bold text-xl tracking-tight">
               Arshi<span className="text-gradient">onix</span>
             </span>
-          </a>
+          </Link>
 
           <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <button
-                key={link.href}
-                onClick={() => handleNavClick(link.href)}
+                key={link.label}
+                onClick={() => handleNavClick(link)}
                 className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
               >
                 {link.label}
@@ -86,7 +86,7 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center gap-3">
             <Button
-              onClick={() => handleNavClick("#contact")}
+              onClick={() => handleNavClick(navLinks.find((l) => l.label === "Contact")!)}
               size="default"
               className="rounded-xl"
             >
@@ -112,8 +112,8 @@ export default function Navbar() {
         <div className="bg-background/95 backdrop-blur-xl border-b border-border px-6 pb-6 space-y-1">
           {navLinks.map((link) => (
             <button
-              key={link.href}
-              onClick={() => handleNavClick(link.href)}
+              key={link.label}
+              onClick={() => handleNavClick(link)}
               className="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             >
               {link.label}
@@ -127,7 +127,7 @@ export default function Navbar() {
             Careers
           </Link>
           <Button
-            onClick={() => handleNavClick("#contact")}
+            onClick={() => handleNavClick(navLinks.find((l) => l.label === "Contact")!)}
             className="w-full mt-2 rounded-xl"
           >
             Get a Quote

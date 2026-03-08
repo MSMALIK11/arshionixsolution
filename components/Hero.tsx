@@ -75,15 +75,13 @@ export default function Hero() {
               className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-5 animate-fade-in-up"
               style={{ animationDelay: "0.1s" }}
             >
-              We Build
+              Build Modern Web Apps
               <br />
-              <span className="text-gradient">Digital Products</span>
-              <br />
-              That Matter
+              <span className="text-gradient">& AI Solutions</span>
             </h1>
 
             <p className="text-muted-foreground text-base md:text-lg max-w-xl mx-auto lg:mx-0 mb-5 animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
-              From idea to launch — web apps, software & mobile products that scale. <span className="text-foreground/90">Trusted by startups and scale-ups.</span>
+              We help startups and businesses build scalable digital products.
             </p>
 
             <div
@@ -112,16 +110,16 @@ export default function Hero() {
                 size="lg"
                 className="group rounded-xl shadow-lg shadow-brand-500/25"
               >
-                Get a Free Quote
+                Start Your Project
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button
                 variant="secondary"
-                onClick={() => handleNavClick("#portfolio")}
+                onClick={() => handleNavClick("#contact")}
                 size="lg"
                 className="rounded-xl"
               >
-                View Our Work
+                Get Free Consultation
               </Button>
             </div>
             <p className="text-xs text-muted-foreground animate-fade-in-up" style={{ animationDelay: "0.35s" }}>

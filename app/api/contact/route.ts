@@ -22,7 +22,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     const name = typeof body.name === "string" ? body.name.trim() : "";
     const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+    const company = typeof body.company === "string" ? body.company.trim() : "";
     const service = typeof body.service === "string" ? body.service.trim() : "";
+    const projectType = typeof body.projectType === "string" ? body.projectType.trim() : "";
+    const budget = typeof body.budget === "string" ? body.budget.trim() : "";
     const message = typeof body.message === "string" ? body.message.trim() : "";
 
     if (!name || !email || !message) {
@@ -52,14 +55,19 @@ export async function POST(request: Request) {
     }
 
     if (!RESEND_API_KEY) {
-      console.warn("RESEND_API_KEY not set — contact form submission logged only.");
-      console.info("Contact form:", { name, email, service, message: message.slice(0, 100) });
+      console.warn(
+        "RESEND_API_KEY not set — contact form submission logged only. Add it to .env.local and restart the dev server (npm run dev)."
+      );
+      console.info("Contact form:", { name, email, company, service, projectType, budget, message: message.slice(0, 100) });
       return NextResponse.json({ success: true });
     }
 
     const safeName = escapeHtml(name);
     const safeEmail = escapeHtml(email);
+    const safeCompany = escapeHtml(company || "—");
     const safeService = escapeHtml(service || "—");
+    const safeProjectType = escapeHtml(projectType || "—");
+    const safeBudget = escapeHtml(budget || "—");
     const safeMessage = escapeHtml(message);
 
     const html = `
@@ -74,9 +82,12 @@ export async function POST(request: Request) {
     </div>
     <div style="padding:24px">
       <table style="width:100%;border-collapse:collapse">
-        <tr><td style="padding:8px 0;font-size:13px;color:#64748b;width:100px">Name</td><td style="padding:8px 0;font-size:14px;font-weight:600;color:#0f172a">${safeName}</td></tr>
+        <tr><td style="padding:8px 0;font-size:13px;color:#64748b;width:120px">Name</td><td style="padding:8px 0;font-size:14px;font-weight:600;color:#0f172a">${safeName}</td></tr>
         <tr><td style="padding:8px 0;font-size:13px;color:#64748b">Email</td><td style="padding:8px 0"><a href="mailto:${safeEmail}" style="font-size:14px;color:#6366f1;text-decoration:none">${safeEmail}</a></td></tr>
+        <tr><td style="padding:8px 0;font-size:13px;color:#64748b">Company</td><td style="padding:8px 0;font-size:14px;color:#0f172a">${safeCompany}</td></tr>
         <tr><td style="padding:8px 0;font-size:13px;color:#64748b">Service</td><td style="padding:8px 0;font-size:14px;color:#0f172a">${safeService}</td></tr>
+        <tr><td style="padding:8px 0;font-size:13px;color:#64748b">Project type</td><td style="padding:8px 0;font-size:14px;color:#0f172a">${safeProjectType}</td></tr>
+        <tr><td style="padding:8px 0;font-size:13px;color:#64748b">Budget</td><td style="padding:8px 0;font-size:14px;color:#0f172a">${safeBudget}</td></tr>
       </table>
       <div style="margin-top:20px;padding-top:20px;border-top:1px solid #e2e8f0">
         <p style="margin:0 0 8px;font-size:13px;color:#64748b">Message</p>
@@ -98,7 +109,7 @@ export async function POST(request: Request) {
         from: RESEND_FROM,
         to: [CONTACT_EMAIL],
         replyTo: email,
-        subject: `[Arshionix] ${name} — ${service || "General enquiry"}`,
+        subject: `[Arshionix] ${name}${company ? ` (${company})` : ""} — ${projectType || service || "General enquiry"}`,
         html,
       }),
     });

@@ -26,7 +26,10 @@ export default function Contact() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    company: "",
     service: "",
+    projectType: "",
+    budget: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -132,12 +135,15 @@ export default function Contact() {
                     <Button
                       onClick={() => {
                         setSubmitted(false);
-                        setForm({
-                          name: "",
-                          email: "",
-                          service: "",
-                          message: "",
-                        });
+                      setForm({
+                        name: "",
+                        email: "",
+                        company: "",
+                        service: "",
+                        projectType: "",
+                        budget: "",
+                        message: "",
+                      });
                       }}
                       className="mt-6 rounded-xl"
                     >
@@ -179,6 +185,34 @@ export default function Contact() {
                     </div>
 
                     <div className="space-y-1.5">
+                      <Label>Company</Label>
+                      <Input
+                        name="company"
+                        value={form.company}
+                        onChange={handleChange}
+                        placeholder="Your company name"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label>Project type</Label>
+                      <select
+                        name="projectType"
+                        value={form.projectType}
+                        onChange={handleChange}
+                        className="flex h-10 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-0"
+                      >
+                        <option value="">Select project type</option>
+                        <option>Web Development</option>
+                        <option>Software Development</option>
+                        <option>Android App</option>
+                        <option>UI/UX Design</option>
+                        <option>AI / ML</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-1.5">
                       <Label>Select service</Label>
                       <select
                         name="service"
@@ -192,6 +226,23 @@ export default function Contact() {
                         <option>Android Development</option>
                         <option>UI/UX Design</option>
                         <option>Other</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label>Budget</Label>
+                      <select
+                        name="budget"
+                        value={form.budget}
+                        onChange={handleChange}
+                        className="flex h-10 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-0"
+                      >
+                        <option value="">Select budget range</option>
+                        <option>Under $10,000</option>
+                        <option>$10,000 – $25,000</option>
+                        <option>$25,000 – $50,000</option>
+                        <option>$50,000+</option>
+                        <option>Not sure yet</option>
                       </select>
                     </div>
 
