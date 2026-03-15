@@ -25,48 +25,15 @@ import { Card, CardContent } from "@/components/ui/card";
 const openings = [
   {
     id: 1,
-    title: "Senior React / Next.js Developer",
-    type: "Full-time",
+    title: "React.js Intern",
+    type: "Internship",
     location: "Remote (Worldwide)",
     department: "Engineering",
-    level: "Senior",
+    level: "Intern",
     description:
-      "We're looking for a battle-tested frontend engineer to lead the delivery of complex web products for our enterprise clients. You'll architect scalable component libraries, mentor junior devs, and collaborate directly with design leads.",
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "REST / GraphQL"],
-  },
-  {
-    id: 2,
-    title: "Android Developer (Kotlin)",
-    type: "Full-time",
-    location: "Remote (Worldwide)",
-    department: "Mobile",
-    level: "Mid–Senior",
-    description:
-      "Join our mobile team to build polished, high-performance Android apps from scratch. You'll own features end-to-end — from architecture decisions to Play Store deployment and post-launch monitoring.",
-    skills: ["Kotlin", "Jetpack Compose", "MVVM", "Firebase", "REST APIs"],
-  },
-  {
-    id: 3,
-    title: "UI/UX Designer",
-    type: "Full-time",
-    location: "Remote (Worldwide)",
-    department: "Design",
-    level: "Mid-level",
-    description:
-      "Craft beautiful, intuitive product experiences that users rave about. You'll run discovery workshops, produce Figma prototypes, and hand off production-ready design systems to our engineering teams.",
-    skills: ["Figma", "Prototyping", "User Research", "Design Systems", "Usability Testing"],
-  },
-  {
-    id: 4,
-    title: "Full-Stack Software Engineer",
-    type: "Full-time",
-    location: "Remote (Worldwide)",
-    department: "Engineering",
-    level: "Mid-level",
-    description:
-      "Build robust, scalable back-ends and intuitive front-ends across a variety of exciting client projects. You'll work in Node.js and Python for services, and React for UIs, within an agile, collaborative team.",
-    skills: ["Node.js", "Python", "React", "PostgreSQL", "Docker"],
-  },
+      "We're looking for a passionate React.js intern who is eager to learn and grow in modern frontend development. You will assist in building responsive web applications, work with reusable components, and collaborate with our development team to deliver high-quality user experiences.",
+    skills: ["React.js", "JavaScript", "HTML", "CSS", "Git"],
+  }
 ];
 
 const whyUs = [

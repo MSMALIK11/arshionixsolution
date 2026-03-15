@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -35,10 +36,11 @@ export default function Navbar() {
       return;
     }
     if (link.hash && link.href === "/") {
-      window.location.href = `/${link.hash}`;
+      router.push(link.href + link.hash);
+      setTimeout(() => document.querySelector(link.hash)?.scrollIntoView({ behavior: "smooth" }), 100);
       return;
     }
-    window.location.href = link.href;
+    router.push(link.href);
   };
 
   return (

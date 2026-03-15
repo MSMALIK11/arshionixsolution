@@ -10,6 +10,30 @@ const categories = ["All", "Web", "Software", "Android", "UI/UX"];
 
 const projects = [
   {
+    title: "AL Measure",
+    category: "Web",
+    description: "Measurement and analytics platform built for precision tracking and reporting. Clean UI with dashboards and data visualization.",
+    outcome: "Custom solution · Scalable architecture",
+    tags: ["React", "Next.js", "TypeScript", "Tailwind"],
+    icon: Globe,
+    color: "from-brand-400 to-brand-600",
+    bg: "from-brand-500/10 to-brand-600/5",
+    liveUrl: null as string | null,
+    screenshot: null as string | null,
+  },
+  {
+    title: "Journal Book",
+    category: "Web",
+    description: "Trading journal and dashboard app with layout options, sidebar navigation, and structured content. Next.js with MongoDB integration.",
+    outcome: "Next.js app · Responsive layout",
+    tags: ["Next.js", "MongoDB", "Tailwind", "App Router"],
+    icon: Layers,
+    color: "from-violet-400 to-violet-600",
+    bg: "from-violet-500/10 to-violet-600/5",
+    liveUrl: null as string | null,
+    screenshot: null as string | null,
+  },
+  {
     title: "E-Commerce Platform",
     category: "Web",
     description: "Full-stack e-commerce with React, Node.js & Stripe. Real-time inventory, admin dashboard, and analytics.",

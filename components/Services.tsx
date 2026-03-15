@@ -82,31 +82,6 @@ export default function Services() {
           </p>
         </div>
 
-        {/* At a glance — all 4 services in one row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-          {services.map((svc, i) => {
-            const Icon = svc.icon;
-            return (
-              <button
-                key={svc.title}
-                type="button"
-                onClick={() => setActiveIndex(i)}
-                className={`text-left p-4 rounded-xl border transition-all duration-200 ${
-                  activeIndex === i
-                    ? "border-brand-500 bg-brand-500/10 shadow-lg shadow-brand-500/10"
-                    : "border-border bg-card/50 hover:border-brand-500/30 hover:bg-card"
-                }`}
-              >
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-500/20 to-violet-500/20 flex items-center justify-center mb-2">
-                  <Icon className="w-5 h-5 text-brand-400" />
-                </div>
-                <p className="font-heading font-bold text-sm text-foreground">{svc.title}</p>
-                <p className="text-xs text-muted-foreground mt-0.5">{svc.tagline}</p>
-              </button>
-            );
-          })}
-        </div>
-
         <div className="flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden shadow-2xl shadow-brand-500/10 border border-border">
           <nav className="lg:w-72 xl:w-80 flex-shrink-0 bg-[#0d1528] overflow-y-auto max-h-[400px] lg:max-h-none">
             <ul>
