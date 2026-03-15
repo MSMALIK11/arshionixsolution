@@ -56,7 +56,7 @@ export async function POST(request: Request) {
       console.warn(
         "RESEND_API_KEY not set — contact form submission logged only. Add it to .env.local and restart the dev server (npm run dev)."
       );
-      console.info("Contact form:", { name, email, company, service, projectType, message: message.slice(0, 100) });
+      console.info("Contact form:", { name, email, company, projectType, message: message.slice(0, 100) });
       return NextResponse.json({ success: true });
     }
 
