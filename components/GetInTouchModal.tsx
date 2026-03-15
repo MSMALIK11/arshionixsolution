@@ -45,7 +45,7 @@ export default function GetInTouchModal() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="get-in-touch-title"
-        className="fixed left-1/2 top-1/2 z-[101] w-[min(92vw,420px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-border bg-card shadow-2xl shadow-brand-500/20"
+        className="fixed left-1/2 top-1/2 z-[101] w-[min(92vw,420px)] -translate-x-1/2 -translate-y-1/2 card-webteck shadow-2xl shadow-brand-500/20"
       >
         {/* Close */}
         <button

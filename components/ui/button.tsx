@@ -4,18 +4,19 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-gradient-to-r from-brand-500 to-violet-600 text-white shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5",
+          "btn-gradient hover:shadow-xl active:translate-y-0 active:scale-[0.99]",
         secondary:
-          "border border-border bg-background/50 backdrop-blur-sm hover:bg-accent",
+          "btn-gradient-outline hover:bg-indigo-500/5 dark:hover:bg-indigo-500/10 active:translate-y-0",
         outline:
-          "border border-border bg-transparent hover:bg-accent hover:text-accent-foreground",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-brand-400 underline-offset-4 hover:underline",
+          "border-2 border-border bg-transparent text-foreground hover:bg-accent hover:border-brand-500/40 hover:text-white hover:-translate-y-0.5 active:translate-y-0",
+        ghost:
+          "text-foreground hover:bg-accent hover:text-white",
+        link: "text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 underline-offset-4 hover:underline",
       },
       size: {
         default: "h-10 px-5 py-2",

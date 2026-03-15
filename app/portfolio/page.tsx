@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function PortfolioPage() {
   return (
-    <div className="dark min-h-screen">
+    <div className="min-h-screen">
       <Navbar />
       <main>
         <section className="section-padding pt-28">
@@ -19,7 +19,7 @@ export default function PortfolioPage() {
               Featured <span className="text-gradient">Projects</span>
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-              A selection of our work across web, software, mobile, and design. Case studies and demos are being added.
+              A selection of our work across web, software, mobile, and design. Click any project for full details.
             </p>
             <Button asChild variant="secondary" size="lg" className="rounded-xl">
               <Link href="/#contact">

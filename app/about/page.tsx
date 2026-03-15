@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <div className="dark min-h-screen">
+    <div className="min-h-screen">
       <Navbar />
       <main>
         <section className="section-padding pt-28">

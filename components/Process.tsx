@@ -1,33 +1,14 @@
 "use client";
 
 import { Search, Palette, Code, Rocket, HeadphonesIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const steps = [
-  {
-    icon: Search,
-    title: "Discovery",
-    desc: "We learn your goals, users, and constraints so we can propose the right solution.",
-  },
-  {
-    icon: Palette,
-    title: "Design",
-    desc: "Wireframes and prototypes you can click through — we align on the experience before code.",
-  },
-  {
-    icon: Code,
-    title: "Build",
-    desc: "Sprint-based development with demos every two weeks. You see progress and give feedback early.",
-  },
-  {
-    icon: Rocket,
-    title: "Launch",
-    desc: "We deploy, monitor, and hand over documentation so your team can own it long term.",
-  },
-  {
-    icon: HeadphonesIcon,
-    title: "Support",
-    desc: "Post-launch support, maintenance, and iterations so your product keeps evolving.",
-  },
+  { icon: Search, title: "Discovery", desc: "We learn your goals, users, and constraints so we can propose the right solution.", accent: "card-accent-indigo" },
+  { icon: Palette, title: "Design", desc: "Wireframes and prototypes you can click through — we align on the experience before code.", accent: "card-accent-violet" },
+  { icon: Code, title: "Build", desc: "Sprint-based development with demos every two weeks. You see progress and give feedback early.", accent: "card-accent-cyan" },
+  { icon: Rocket, title: "Launch", desc: "We deploy, monitor, and hand over documentation so your team can own it long term.", accent: "card-accent-emerald" },
+  { icon: HeadphonesIcon, title: "Support", desc: "Post-launch support, maintenance, and iterations so your product keeps evolving.", accent: "card-accent-rose" },
 ];
 
 export default function Process() {
@@ -51,7 +32,10 @@ export default function Process() {
           {steps.map((step, i) => (
             <div
               key={step.title}
-              className="relative flex flex-col items-center text-center p-6 rounded-2xl bg-card border border-border hover:border-brand-500/30 transition-all duration-300"
+              className={cn(
+                "relative flex flex-col items-center text-center p-6 rounded-2xl card-webteck card-webteck-hover",
+                step.accent
+              )}
             >
               {i < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-1/2 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-brand-500/30 to-transparent -translate-y-1/2 pointer-events-none" />

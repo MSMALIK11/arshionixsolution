@@ -27,9 +27,7 @@ export default function Contact() {
     name: "",
     email: "",
     company: "",
-    service: "",
     projectType: "",
-    budget: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -114,7 +112,7 @@ export default function Contact() {
                 href={site.calendly}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 p-4 rounded-2xl border border-border bg-card hover:border-brand-500/30 transition-all font-semibold text-brand-400"
+                className="flex items-center justify-center gap-2 p-4 card-webteck card-webteck-hover font-semibold text-brand-400"
               >
                 <Calendar className="w-5 h-5" />
                 Book a free call
@@ -139,9 +137,7 @@ export default function Contact() {
                         name: "",
                         email: "",
                         company: "",
-                        service: "",
                         projectType: "",
-                        budget: "",
                         message: "",
                       });
                       }}
@@ -209,40 +205,6 @@ export default function Contact() {
                         <option>UI/UX Design</option>
                         <option>AI / ML</option>
                         <option>Other</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <Label>Select service</Label>
-                      <select
-                        name="service"
-                        value={form.service}
-                        onChange={handleChange}
-                        className="flex h-10 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-0"
-                      >
-                        <option value="">Select a service</option>
-                        <option>Web Development</option>
-                        <option>Software Development</option>
-                        <option>Android Development</option>
-                        <option>UI/UX Design</option>
-                        <option>Other</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <Label>Budget</Label>
-                      <select
-                        name="budget"
-                        value={form.budget}
-                        onChange={handleChange}
-                        className="flex h-10 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-0"
-                      >
-                        <option value="">Select budget range</option>
-                        <option>Under $10,000</option>
-                        <option>$10,000 – $25,000</option>
-                        <option>$25,000 – $50,000</option>
-                        <option>$50,000+</option>
-                        <option>Not sure yet</option>
                       </select>
                     </div>
 

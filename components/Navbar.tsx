@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "@/components/ThemeProvider";
 
 const navLinks = [
   { href: "/", label: "Home", hash: "#home" },
@@ -21,6 +22,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -87,6 +89,14 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              className="p-2.5 rounded-xl border border-border bg-background/50 hover:bg-accent hover:border-brand-500/30 hover:shadow-md hover:shadow-brand-500/10 transition-all duration-300 text-muted-foreground hover:text-foreground"
+            >
+              {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
             <Button
               onClick={() => handleNavClick(navLinks.find((l) => l.label === "Contact")!)}
               size="default"
@@ -128,12 +138,25 @@ export default function Navbar() {
           >
             Careers
           </Link>
-          <Button
-            onClick={() => handleNavClick(navLinks.find((l) => l.label === "Contact")!)}
-            className="w-full mt-2 rounded-xl"
-          >
-            Get a Quote
-          </Button>
+          <div className="flex items-center gap-2 mt-2">
+            <button
+              type="button"
+              onClick={() => {
+                toggleTheme();
+                setMobileOpen(false);
+              }}
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              className="p-2.5 rounded-xl border border-border bg-background/50 hover:bg-accent hover:border-brand-500/30 text-muted-foreground hover:text-foreground transition-all duration-300"
+            >
+              {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+            <Button
+              onClick={() => handleNavClick(navLinks.find((l) => l.label === "Contact")!)}
+              className="flex-1 rounded-xl"
+            >
+              Get a Quote
+            </Button>
+          </div>
         </div>
       </div>
     </header>

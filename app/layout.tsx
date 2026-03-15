@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Analytics from "@/components/Analytics";
 import GetInTouchModal from "@/components/GetInTouchModal";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://arshionix.com";
 
@@ -138,15 +139,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${plusJakarta.variable} font-sans antialiased`}>
-        <Analytics />
-        <GetInTouchModal />
+    <html lang="en" suppressHydrationWarning>
+      <head>
         <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem('arshionix-theme');document.documentElement.classList.add(t==='light'?'light':'dark');})();`,
+          }}
         />
-        {children}
+      </head>
+      <body className={`${plusJakarta.variable} font-sans antialiased`}>
+        <ThemeProvider>
+          <Analytics />
+          <GetInTouchModal />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

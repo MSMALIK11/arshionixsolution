@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Globe, Code2, Smartphone, Palette } from "lucide-react";
+import { ArrowRight, Globe, Code2, Smartphone, Palette, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 
@@ -58,6 +58,19 @@ const services = [
     ],
     icon: Palette,
   },
+  {
+    title: "AI Voice Agent",
+    tagline: "Voice-first conversational AI",
+    description:
+      "We build voice AI solutions for support, sales, and automation — inbound and outbound calls, IVR replacement, and conversational flows. Design flows in a visual editor, plug in your LLMs, and go live with full control and analytics.",
+    benefits: [
+      { label: "Live voice in & out", text: "Streaming speech-to-text and neural TTS so callers talk naturally." },
+      { label: "Visual flow builder", text: "Design and update call flows without hard-coded decision trees." },
+      { label: "Handoff & compliance", text: "Transfer to agents with context; rules and audit trails built in." },
+      { label: "Your stack", text: "REST, webhooks, telephony, and CRM integrations so it fits your ops." },
+    ],
+    icon: Mic,
+  },
 ];
 
 export default function Services() {
@@ -78,11 +91,11 @@ export default function Services() {
             Our <span className="text-gradient">Services</span>
           </h2>
           <p className="text-muted-foreground mt-2 max-w-2xl">
-            We do four things: <strong className="text-foreground/90">web development</strong>, <strong className="text-foreground/90">custom software</strong>, <strong className="text-foreground/90">Android apps</strong>, and <strong className="text-foreground/90">UI/UX design</strong>. Pick one below to see details. Typical MVP: 8–12 weeks.
+            We do five things: <strong className="text-foreground/90">web development</strong>, <strong className="text-foreground/90">custom software</strong>, <strong className="text-foreground/90">Android apps</strong>, <strong className="text-foreground/90">UI/UX design</strong>, and <strong className="text-foreground/90">AI voice agent</strong>. Pick one below to see details.
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-0 rounded-2xl overflow-hidden shadow-2xl shadow-brand-500/10 border border-border">
+        <div className="flex flex-col lg:flex-row gap-0 overflow-hidden rounded-2xl card-webteck card-webteck-hover">
           <nav className="lg:w-72 xl:w-80 flex-shrink-0 bg-[#0d1528] overflow-y-auto max-h-[400px] lg:max-h-none">
             <ul>
               {services.map((service, i) => {

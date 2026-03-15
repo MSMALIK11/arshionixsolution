@@ -2,151 +2,106 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ExternalLink, Globe, Smartphone, Layers, Palette, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ExternalLink, Globe, Smartphone, Layers, Palette, Sparkles, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { projects } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 
 const categories = ["All", "Web", "Software", "Android", "UI/UX"];
 
-const projects = [
-  {
-    title: "AL Measure",
-    category: "Web",
-    description: "Measurement and analytics platform built for precision tracking and reporting. Clean UI with dashboards and data visualization.",
-    outcome: "Custom solution · Scalable architecture",
-    tags: ["React", "Next.js", "TypeScript", "Tailwind"],
-    icon: Globe,
-    color: "from-brand-400 to-brand-600",
-    bg: "from-brand-500/10 to-brand-600/5",
-    liveUrl: null as string | null,
-    screenshot: null as string | null,
-  },
-  {
-    title: "Journal Book",
-    category: "Web",
-    description: "Trading journal and dashboard app with layout options, sidebar navigation, and structured content. Next.js with MongoDB integration.",
-    outcome: "Next.js app · Responsive layout",
-    tags: ["Next.js", "MongoDB", "Tailwind", "App Router"],
-    icon: Layers,
-    color: "from-violet-400 to-violet-600",
-    bg: "from-violet-500/10 to-violet-600/5",
-    liveUrl: null as string | null,
-    screenshot: null as string | null,
-  },
-  {
-    title: "E-Commerce Platform",
-    category: "Web",
-    description: "Full-stack e-commerce with React, Node.js & Stripe. Real-time inventory, admin dashboard, and analytics.",
-    outcome: "Launched in 10 weeks · 2x faster checkout",
-    tags: ["React", "Node.js", "MongoDB", "Stripe"],
-    icon: Globe,
-    color: "from-brand-400 to-brand-600",
-    bg: "from-brand-500/10 to-brand-600/5",
-    liveUrl: null as string | null,
-    screenshot: null as string | null,
-  },
-  {
-    title: "Task Management SaaS",
-    category: "Software",
-    description: "Collaborative tool with real-time updates, Kanban boards, and team features.",
-    outcome: "50+ teams onboarded in first 6 months",
-    tags: ["Next.js", "PostgreSQL", "WebSocket", "Redis"],
-    icon: Layers,
-    color: "from-violet-400 to-violet-600",
-    bg: "from-violet-500/10 to-violet-600/5",
-    liveUrl: null as string | null,
-    screenshot: null as string | null,
-  },
-  {
-    title: "Food Delivery App",
-    category: "Android",
-    description: "Android app with live tracking, payments, and restaurant management.",
-    outcome: "4.8★ on Play Store · 100k+ downloads",
-    tags: ["Kotlin", "Firebase", "Google Maps", "Stripe"],
-    icon: Smartphone,
-    color: "from-green-400 to-emerald-600",
-    bg: "from-green-500/10 to-emerald-600/5",
-    liveUrl: null as string | null,
-    screenshot: null as string | null,
-  },
-  {
-    title: "Fintech Dashboard UI",
-    category: "UI/UX",
-    description: "Financial analytics dashboard with data viz, dark mode, and design system.",
-    outcome: "Reduced support tickets by 40%",
-    tags: ["Figma", "Design System", "Prototyping"],
-    icon: Palette,
-    color: "from-pink-400 to-rose-500",
-    bg: "from-pink-500/10 to-rose-600/5",
-    liveUrl: null as string | null,
-    screenshot: null as string | null,
-  },
-  {
-    title: "Real Estate Portal",
-    category: "Web",
-    description: "Property listings with search, maps, and virtual tours.",
-    outcome: "MVP in 12 weeks · 3x more leads",
-    tags: ["React", "Next.js", "Mapbox", "Prisma"],
-    icon: Globe,
-    color: "from-amber-400 to-orange-500",
-    bg: "from-amber-500/10 to-orange-600/5",
-    liveUrl: null as string | null,
-    screenshot: null as string | null,
-  },
-  {
-    title: "Fitness Tracker App",
-    category: "Android",
-    description: "Fitness app with workouts, progress tracking, and wearable sync.",
-    outcome: "Featured by Google · 50k+ MAU",
-    tags: ["Kotlin", "Room DB", "Wear OS", "Charts"],
-    icon: Smartphone,
-    color: "from-cyan-400 to-blue-600",
-    bg: "from-cyan-500/10 to-blue-600/5",
-    liveUrl: null as string | null,
-    screenshot: null as string | null,
-  },
-];
+const categoryAccent: Record<string, string> = {
+  Web: "card-accent-indigo",
+  Software: "card-accent-violet",
+  Android: "card-accent-cyan",
+  "UI/UX": "card-accent-emerald",
+};
 
-function ProjectCard({ project }: { project: (typeof projects)[0] }) {
-  const { icon: Icon, title, category, description, outcome, tags, color, bg, liveUrl, screenshot } = project;
-  return (
-    <article
-      className={cn(
-        "group relative rounded-2xl border border-border bg-card overflow-hidden",
-        "transition-all duration-300 hover:border-brand-500/30 hover:shadow-xl hover:shadow-brand-500/5 hover:-translate-y-1"
-      )}
-    >
-      {/* Coming soon ribbon */}
-      <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-sm border border-border shadow-sm">
-        <Sparkles className="w-3.5 h-3.5 text-brand-400" />
-        <span className="text-xs font-semibold text-muted-foreground">Coming soon</span>
-      </div>
+const iconMap = {
+  Globe,
+  Smartphone,
+  Layers,
+  Palette,
+};
 
-      {/* Header: screenshot or icon */}
-      <div className={cn("relative h-36 flex items-center justify-center overflow-hidden", !screenshot && color)}>
-        {screenshot ? (
-          <Image
-            src={screenshot}
-            alt={title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 400px"
-          />
-        ) : (
-          <>
-            <div className="absolute inset-0 bg-black/10" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.2)_100%)]" />
-            <Icon className="w-14 h-14 text-white/90 drop-shadow-sm relative z-10" />
-          </>
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.08,
+      duration: 0.45,
+      ease: [0.25, 0.4, 0.25, 1],
+    },
+  }),
+};
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const Icon = iconMap[project.icon as keyof typeof iconMap] ?? Globe;
+  const { title, category, description, outcome, tags, color, bg, liveUrl, screenshot, slug, comingSoon } = project;
+  const hasDetail = Boolean(slug) && !comingSoon;
+  const isComingSoon = Boolean(comingSoon);
+  const showComingSoonBadge = !hasDetail || isComingSoon;
+  const accentClass = categoryAccent[category] ?? "card-accent-indigo";
+  const cardClass = cn(
+    "project-card group relative overflow-hidden block h-full rounded-2xl card-webteck card-webteck-hover",
+    accentClass
+  );
+
+  const content = (
+    <>
+        {/* Decorative shapes */}
+        <div
+          className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-[0.12] dark:opacity-[0.08] blur-2xl pointer-events-none"
+          style={{ background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)" }}
+          aria-hidden
+        />
+        <div
+          className="absolute bottom-0 left-0 w-20 h-20 rounded-full opacity-[0.08] dark:opacity-[0.06] blur-xl pointer-events-none"
+          style={{ background: "linear-gradient(135deg, #06b6d4 0%, #6366f1 100%)" }}
+          aria-hidden
+        />
+        {hasDetail && !isComingSoon && (
+          <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-brand-400/60 dark:bg-brand-400/40" aria-hidden />
         )}
-        <span className="absolute bottom-3 left-4 px-2.5 py-1 rounded-md bg-black/40 backdrop-blur-sm text-white text-[10px] font-semibold uppercase tracking-wider">
-          {category}
-        </span>
-      </div>
 
-      {/* Content */}
-      <div className={cn("p-5 bg-gradient-to-b from-card to-card/80", bg)}>
-        <h3 className="font-heading text-lg font-bold text-foreground mb-1.5 group-hover:text-brand-400 transition-colors">
+        {showComingSoonBadge && (
+          <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-sm border border-border shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+            <span className="text-xs font-semibold text-muted-foreground">Coming soon</span>
+          </div>
+        )}
+
+        <div className={cn("project-card-image-wrap relative h-36 flex items-center justify-center", !screenshot && color)}>
+          {screenshot ? (
+            <>
+              <Image
+                src={screenshot}
+                alt={title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 400px"
+              />
+              <div className="project-card-overlay absolute inset-0 z-[1]" />
+              <div className="project-card-shine absolute inset-0 z-[2] pointer-events-none" />
+            </>
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-black/10" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.2)_100%)]" />
+              <Icon className="w-14 h-14 text-white/90 drop-shadow-sm relative z-10" />
+            </>
+          )}
+          <span className="absolute bottom-3 left-4 z-10 px-2.5 py-1 rounded-md bg-black/40 backdrop-blur-sm text-white text-[10px] font-semibold uppercase tracking-wider">
+            {category}
+          </span>
+        </div>
+
+      <div className={cn("p-5 bg-card", bg)}>
+        <h3 className="font-heading text-lg font-bold text-foreground mb-1.5 group-hover:text-brand-500 transition-colors duration-300">
           {title}
         </h3>
         {outcome && (
@@ -168,12 +123,23 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
         </div>
 
         <div className="flex items-center justify-between pt-3 border-t border-border">
-          {liveUrl ? (
+          {hasDetail ? (
+            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-400 group-hover:text-brand-300 transition-colors">
+              View details
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </span>
+          ) : isComingSoon ? (
+            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground cursor-not-allowed select-none">
+              View details
+              <ArrowRight className="w-4 h-4 opacity-50" />
+            </span>
+          ) : liveUrl ? (
             <a
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-400 hover:text-brand-300 transition-colors"
+              onClick={(e) => e.stopPropagation()}
             >
               <ExternalLink className="w-4 h-4" />
               View live
@@ -186,7 +152,28 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
           )}
         </div>
       </div>
-    </article>
+    </>
+  );
+
+  return (
+    <motion.div
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      className="h-full"
+    >
+      {hasDetail ? (
+        <Link href={`/portfolio/${slug!}`} className={cardClass}>
+          {content}
+        </Link>
+      ) : (
+        <article className={cardClass}>
+          {content}
+        </article>
+      )}
+    </motion.div>
   );
 }
 
@@ -211,7 +198,7 @@ export default function Portfolio() {
             Featured <span className="text-gradient">Projects</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A preview of our work across web, software, mobile, and design. Case studies and live demos are coming soon.
+            A preview of our work across web, software, mobile, and design. Click any project for full details.
           </p>
         </div>
 
@@ -233,8 +220,8 @@ export default function Portfolio() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((project) => (
-            <ProjectCard key={project.title} project={project} />
+          {filtered.map((project, i) => (
+            <ProjectCard key={project.slug ?? project.title} project={project} index={i} />
           ))}
         </div>
       </div>

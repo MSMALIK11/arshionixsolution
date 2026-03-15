@@ -222,7 +222,7 @@ export default function CareersPage() {
   }, []);
 
   return (
-    <div className="dark min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground">
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <AnimatedOrb className="w-[600px] h-[600px] bg-brand-500 -top-48 -left-48" />
         <AnimatedOrb className="w-[500px] h-[500px] bg-violet-600 top-1/2 -right-32" />

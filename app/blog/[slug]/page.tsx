@@ -32,7 +32,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <div className="dark min-h-screen">
+    <div className="min-h-screen">
       <Navbar />
       <main>
         <article className="section-padding pt-28">

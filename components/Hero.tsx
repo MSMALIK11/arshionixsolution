@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ArrowRight, Github, Linkedin, Twitter, Sparkles, Users } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Twitter, Sparkles, Users, Bot, Cpu, Network } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { site } from "@/lib/site";
 
@@ -54,10 +54,6 @@ export default function Hero() {
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-brand-500/20 rounded-full blur-3xl animate-pulse-slow" />
-        <div
-          className="absolute bottom-1/4 -right-32 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl animate-pulse-slow"
-          style={{ animationDelay: "1.5s" }}
-        />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-400/5 rounded-full blur-3xl" />
       </div>
 
@@ -151,19 +147,43 @@ export default function Hero() {
             className="flex-shrink-0 relative animate-fade-in-up"
             style={{ animationDelay: "0.3s" }}
           >
-            <div className="relative w-72 h-72 md:w-96 md:h-96">
-              <div
-                className="absolute inset-0 rounded-full border-2 border-dashed border-brand-400/30 animate-spin"
-                style={{ animationDuration: "20s" }}
-              />
-              <div
-                className="absolute inset-4 rounded-full border border-violet-500/20 animate-spin"
-                style={{ animationDuration: "15s", animationDirection: "reverse" }}
-              />
-              <div className="absolute inset-8 rounded-full bg-gradient-to-br from-brand-500 via-violet-600 to-brand-700 p-1 shadow-2xl shadow-brand-500/40 animate-float">
-                <div className="w-full h-full rounded-full bg-gradient-to-b from-brand-900 to-background flex flex-col items-center justify-center gap-1">
-                  <span className="font-heading font-black text-6xl text-gradient select-none leading-none">AS</span>
-                  <span className="font-heading font-bold text-sm text-white/60 tracking-[0.2em]">Arshionix Solutions</span>
+            <div className="relative w-72 md:w-[22rem]">
+              {/* AI visual card */}
+              <div className="relative overflow-hidden rounded-3xl border border-brand-500/30 bg-gradient-to-br from-brand-950/90 via-background to-violet-950/50 p-6 shadow-2xl shadow-brand-500/20 backdrop-blur-sm">
+                {/* Neural grid background */}
+                <div className="absolute inset-0 opacity-30">
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.15)_1px,transparent_1px)] bg-[size:1.25rem_1.25rem]" />
+                  <div className="absolute top-1/2 left-1/2 w-32 h-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/20 blur-3xl" />
+                </div>
+                <div className="relative flex flex-col items-center gap-4">
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-violet-600 shadow-lg shadow-brand-500/40">
+                      <Bot className="h-8 w-8 text-white" />
+                    </div>
+                    <div className="flex gap-1">
+                      {[Cpu, Network, Sparkles].map((Icon, i) => (
+                        <div
+                          key={i}
+                          className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500/20 text-brand-400"
+                          style={{ animationDelay: `${i * 0.2}s` }}
+                        >
+                          <Icon className="h-4 w-4" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <p className="font-heading text-4xl font-black tracking-tight text-gradient">AI</p>
+                    <p className="mt-1 text-sm font-semibold text-white/80">Powered Solutions</p>
+                    <p className="mt-2 text-xs text-muted-foreground max-w-[12rem]">
+                      We build intelligent software that scales.
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="rounded-full bg-brand-500/20 px-3 py-1 text-xs font-medium text-brand-300">ML</span>
+                    <span className="rounded-full bg-violet-500/20 px-3 py-1 text-xs font-medium text-violet-300">LLMs</span>
+                    <span className="rounded-full bg-brand-500/20 px-3 py-1 text-xs font-medium text-brand-300">Automation</span>
+                  </div>
                 </div>
               </div>
               <button
