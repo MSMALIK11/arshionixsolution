@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Github, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { site } from "@/lib/site";
+import BrandLogo from "@/components/BrandLogo";
 
 const footerLinks: Record<string, { label: string; href: string; external?: boolean }[]> = {
   Services: [
@@ -25,9 +26,6 @@ const footerLinks: Record<string, { label: string; href: string; external?: bool
     { label: "Email", href: "mailto:info@arshionix.com", external: true },
   ],
 };
-
-const techStack = ["React", "Next.js", "Node.js", "Kotlin", "Figma"];
-
 export default function Footer() {
   const handleNav = (href: string) => {
     if (href.startsWith("#")) {
@@ -43,13 +41,8 @@ export default function Footer() {
       <div className="container mx-auto px-6 py-16">
         <div className="grid md:grid-cols-4 gap-12">
           <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-violet-600 flex items-center justify-center shadow-lg">
-                <span className="text-white font-heading font-black text-base">A</span>
-              </div>
-              <span className="font-heading font-bold text-xl">
-                Arshio<span className="text-gradient">nix</span>
-              </span>
+            <div className="mb-4">
+              <BrandLogo variant="full" />
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               Arshionix is a full-service digital agency building world-class web apps, software, mobile apps, and UI/UX designs for clients worldwide.
@@ -113,35 +106,7 @@ export default function Footer() {
             </div>
           ))}
         </div>
-        <div className="mt-10 pt-8 border-t border-border">
-          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">Built with</p>
-          <div className="flex flex-wrap gap-3">
-            {techStack.map((tech) => (
-              <span key={tech} className="text-xs px-3 py-1 rounded-lg bg-muted/50 text-muted-foreground">
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
-
-      <div className="border-t border-border">
-        <div className="container mx-auto px-6 py-10">
-          <div className="bg-gradient-to-r from-brand-500/10 via-violet-500/10 to-brand-500/10 border border-brand-500/20 rounded-2xl px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="font-heading text-2xl font-bold mb-1">Ready to start your next project?</h3>
-              <p className="text-muted-foreground text-sm">Let&apos;s turn your vision into reality. Our team is ready to help.</p>
-            </div>
-            <Button
-              onClick={() => handleNav("#contact")}
-              className="flex-shrink-0 rounded-xl shadow-xl whitespace-nowrap"
-            >
-              Start a Project →
-            </Button>
-          </div>
-        </div>
-      </div>
-
     </footer>
   );
 }

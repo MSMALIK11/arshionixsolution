@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowRight, Github, Linkedin, Twitter, Sparkles, Users, Bot, Cpu, Network } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { site } from "@/lib/site";
@@ -8,6 +9,7 @@ import { site } from "@/lib/site";
 const services = ["Web Development", "Software Engineering", "Android Apps", "UI/UX Design"];
 
 export default function Hero() {
+  const router = useRouter();
   const roleRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -188,7 +190,7 @@ export default function Hero() {
               </div>
               <button
                 type="button"
-                onClick={() => handleNavClick("#portfolio")}
+                onClick={() => router.push("/portfolio")}
                 className="absolute -top-4 -right-4 bg-card border border-border rounded-2xl px-4 py-2 shadow-xl animate-float hover:border-brand-500/40 transition-colors text-left"
                 style={{ animationDelay: "1s" }}
               >

@@ -79,3 +79,14 @@ export function getProjectBySlug(slug: string): Project | undefined {
 export function getAllProjectSlugs(): string[] {
   return projects.filter((p) => p.slug).map((p) => p.slug!);
 }
+
+/** Products shown in navbar (all projects with a slug; comingSoon = no link yet) */
+export function getProductsForNavigation(): { title: string; slug: string; href: string | null }[] {
+  return projects
+    .filter((p) => p.slug)
+    .map((p) => ({
+      title: p.title,
+      slug: p.slug!,
+      href: p.comingSoon ? null : `/portfolio/${p.slug}`,
+    }));
+}

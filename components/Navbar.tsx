@@ -1,18 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "@/components/ThemeProvider";
+import { getProductsForNavigation } from "@/lib/projects";
+import BrandLogo from "@/components/BrandLogo";
+
+const navProducts = getProductsForNavigation();
 
 const navLinks = [
   { href: "/", label: "Home", hash: "#home" },
   { href: "/services", label: "Services", hash: "#services" },
   { href: "/about", label: "About", hash: "#about" },
-  { href: "/portfolio", label: "Work", hash: "#portfolio" },
+  { href: "/portfolio", label: "Work", hash: undefined },
   { href: "/", label: "Process", hash: "#process" },
   { href: "/contact", label: "Contact", hash: "#contact" },
 ];
@@ -20,14 +23,26 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const productsRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const close = (e: MouseEvent) => {
+      if (productsRef.current && !productsRef.current.contains(e.target as Node)) {
+        setProductsOpen(false);
+      }
+    };
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
   }, []);
 
   const handleNavClick = (link: (typeof navLinks)[0]) => {
@@ -56,20 +71,69 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          <Link
-            href="/"
-            className="flex items-center gap-2 group"
-          >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-violet-600 flex items-center justify-center shadow-lg group-hover:shadow-brand-500/40 transition-shadow">
-              <span className="text-white font-heading font-black text-base">A</span>
-            </div>
-            <span className="font-heading font-bold text-xl tracking-tight">
-              Arshi<span className="text-gradient">onix</span>
-            </span>
-          </Link>
+          <BrandLogo variant="compact" />
 
           <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
+            {navLinks.slice(0, 2).map((link) => (
+              <button
+                key={link.label}
+                onClick={() => handleNavClick(link)}
+                className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                {link.label}
+                <span className="absolute inset-x-4 bottom-0 h-0.5 bg-gradient-to-r from-brand-400 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
+              </button>
+            ))}
+
+            <div
+              ref={productsRef}
+              className="relative"
+              onMouseEnter={() => setProductsOpen(true)}
+              onMouseLeave={() => setProductsOpen(false)}
+            >
+              <button
+                type="button"
+                onClick={() => setProductsOpen((o) => !o)}
+                className={cn(
+                  "relative px-4 py-2 text-sm font-medium transition-colors group flex items-center gap-1",
+                  productsOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Products
+                <ChevronDown className={cn("w-4 h-4 transition-transform", productsOpen && "rotate-180")} />
+                <span className="absolute inset-x-4 bottom-0 h-0.5 bg-gradient-to-r from-brand-400 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
+              </button>
+              {productsOpen && (
+                <div className="absolute top-full left-0 pt-1 min-w-[280px] z-50">
+                  <div className="rounded-xl border border-border bg-card shadow-xl py-2 overflow-hidden">
+                    {navProducts.map((p) =>
+                      p.href ? (
+                        <Link
+                          key={p.slug}
+                          href={p.href}
+                          onClick={() => setProductsOpen(false)}
+                          className="block px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent hover:text-brand-400 transition-colors"
+                        >
+                          {p.title}
+                        </Link>
+                      ) : (
+                        <div
+                          key={p.slug}
+                          className="px-4 py-2.5 text-sm text-muted-foreground cursor-default flex items-center justify-between gap-2"
+                        >
+                          <span>{p.title}</span>
+                          <span className="text-[10px] uppercase tracking-wider font-semibold text-brand-400/80">
+                            Soon
+                          </span>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {navLinks.slice(2).map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleNavClick(link)}
@@ -89,14 +153,6 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              className="p-2.5 rounded-xl border border-border bg-background/50 hover:bg-accent hover:border-brand-500/30 hover:shadow-md hover:shadow-brand-500/10 transition-all duration-300 text-muted-foreground hover:text-foreground"
-            >
-              {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
             <Button
               onClick={() => handleNavClick(navLinks.find((l) => l.label === "Contact")!)}
               size="default"
@@ -118,11 +174,51 @@ export default function Navbar() {
       <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-300",
-          mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          mobileOpen ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
         )}
       >
         <div className="bg-background/95 backdrop-blur-xl border-b border-border px-6 pb-6 space-y-1">
-          {navLinks.map((link) => (
+          {navLinks.slice(0, 2).map((link) => (
+            <button
+              key={link.label}
+              onClick={() => handleNavClick(link)}
+              className="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+            >
+              {link.label}
+            </button>
+          ))}
+          <div>
+            <button
+              type="button"
+              onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
+              className="flex w-full items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+            >
+              Products
+              <ChevronDown className={cn("w-4 h-4 transition-transform", mobileProductsOpen && "rotate-180")} />
+            </button>
+            {mobileProductsOpen && (
+              <div className="pl-4 border-l-2 border-brand-500/30 ml-4 my-1 space-y-0.5">
+                {navProducts.map((p) =>
+                  p.href ? (
+                    <Link
+                      key={p.slug}
+                      href={p.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-2 text-sm text-foreground hover:text-brand-400"
+                    >
+                      {p.title}
+                    </Link>
+                  ) : (
+                    <div key={p.slug} className="px-4 py-2 text-sm text-muted-foreground flex justify-between gap-2">
+                      <span>{p.title}</span>
+                      <span className="text-xs text-brand-400">Soon</span>
+                    </div>
+                  )
+                )}
+              </div>
+            )}
+          </div>
+          {navLinks.slice(2).map((link) => (
             <button
               key={link.label}
               onClick={() => handleNavClick(link)}
@@ -139,17 +235,6 @@ export default function Navbar() {
             Careers
           </Link>
           <div className="flex items-center gap-2 mt-2">
-            <button
-              type="button"
-              onClick={() => {
-                toggleTheme();
-                setMobileOpen(false);
-              }}
-              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              className="p-2.5 rounded-xl border border-border bg-background/50 hover:bg-accent hover:border-brand-500/30 text-muted-foreground hover:text-foreground transition-all duration-300"
-            >
-              {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
             <Button
               onClick={() => handleNavClick(navLinks.find((l) => l.label === "Contact")!)}
               className="flex-1 rounded-xl"

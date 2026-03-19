@@ -42,6 +42,14 @@
     --destructive-foreground: 0 0% 98%;
 
     --radius: 0.75rem;
+
+    /* Themeable logo (Arshionix SVG) — change these to rebrand */
+    --logo-orbit-start: #0284c7;
+    --logo-orbit-end: #7c3aed;
+    --logo-a-start: #4f46e5;
+    --logo-a-end: #0891b2;
+    --logo-ix-start: #6366f1;
+    --logo-ix-end: #9333ea;
   }
 
   /* Light theme: clean card and muted surfaces */
@@ -93,6 +101,13 @@
 
     --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 98%;
+
+    --logo-orbit-start: #38bdf8;
+    --logo-orbit-end: #c084fc;
+    --logo-a-start: #818cf8;
+    --logo-a-end: #22d3ee;
+    --logo-ix-start: #a5b4fc;
+    --logo-ix-end: #d8b4fe;
 
   }
 

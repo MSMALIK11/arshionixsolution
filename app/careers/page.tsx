@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import BrandLogo from "@/components/BrandLogo";
 
 const openings = [
   {
@@ -245,14 +246,7 @@ export default function CareersPage() {
 
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border shadow-sm">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-violet-600 flex items-center justify-center shadow-lg">
-              <span className="text-white font-heading font-black text-base">A</span>
-            </div>
-            <span className="font-heading font-bold text-xl tracking-tight">
-              Arshi<span className="text-gradient">onix</span>
-            </span>
-          </Link>
+          <BrandLogo variant="compact" />
           <Link
             href="/"
             className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"

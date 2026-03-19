@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /** No /dashboard in this app — send mistaken URLs to home (hosting/DNS issues are separate). */
+  async redirects() {
+    return [
+      { source: "/dashboard", destination: "/", permanent: false },
+      { source: "/dashboard/:path*", destination: "/", permanent: false },
+      { source: "/dashbord", destination: "/", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {

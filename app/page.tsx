@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import TrustedBy from "@/components/TrustedBy";
 import Services from "@/components/Services";
 import About from "@/components/About";
-import Portfolio from "@/components/Portfolio";
 import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
@@ -30,9 +29,6 @@ export default function Home() {
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <About />
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <Portfolio />
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <Process />
