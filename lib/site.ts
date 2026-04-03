@@ -10,3 +10,21 @@ export const site = {
   },
   calendly: process.env.NEXT_PUBLIC_CALENDLY_URL ?? "",
 };
+
+/** URLs for JSON-LD `sameAs` — only full profile URLs (skips unset or generic site roots). */
+export function organizationSameAsUrls(): string[] {
+  const raw = [
+    process.env.NEXT_PUBLIC_GITHUB_URL,
+    process.env.NEXT_PUBLIC_LINKEDIN_URL,
+    process.env.NEXT_PUBLIC_TWITTER_URL,
+  ];
+  return raw.filter((u): u is string => {
+    if (typeof u !== "string" || !u.startsWith("http")) return false;
+    try {
+      const path = new URL(u).pathname.replace(/\/$/, "") || "/";
+      return path !== "/";
+    } catch {
+      return false;
+    }
+  });
+}

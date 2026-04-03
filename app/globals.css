@@ -5,14 +5,18 @@
 @tailwind utilities;
 
 /* =========================
-   LIGHT MODE
+   COLOR SYSTEM (CSS variables — HSL for Tailwind hsl(var(--token)))
+   Brand: blue + purple — primary blue, accents violet/purple gradients
+   · Page: light cool gray · Cards: white · CTAs: blue → violet gradients
+   Dark: indigo/violet-tinted primary on slate canvas
 ========================= */
 
 @layer base {
 
   :root {
 
-    --background: 0 0% 99%;
+    /* Light — blue / purple brand */
+    --background: 215 28% 97%;
     --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
@@ -21,49 +25,52 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 238 84% 67%;
+    --primary: 221 83% 53%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 97%;
+    --secondary: 215 24% 95%;
     --secondary-foreground: 222 47% 11%;
 
-    --accent: 262 83% 58%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 214 32% 96%;
+    --accent-foreground: 222 47% 11%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 215 20% 40%;
+    --muted: 215 22% 95%;
+    --muted-foreground: 215 18% 42%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
+    --border: 214 26% 90%;
+    --input: 214 26% 90%;
 
-    --ring: 238 84% 67%;
+    --ring: 221 83% 53%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
-    /* Themeable logo (Arshionix SVG) — change these to rebrand */
-    --logo-orbit-start: #0284c7;
-    --logo-orbit-end: #7c3aed;
-    --logo-a-start: #4f46e5;
-    --logo-a-end: #0891b2;
-    --logo-ix-start: #6366f1;
-    --logo-ix-end: #9333ea;
+    /* Brand (hex — blue primary, purple accent) */
+    --brand-primary: #2563eb;
+    --brand-accent: #7c3aed;
+
+    /* Logo gradients — blue → violet (light) */
+    --logo-orbit-start: #2563eb;
+    --logo-orbit-end: #8b5cf6;
+    --logo-a-start: #1d4ed8;
+    --logo-a-end: #7c3aed;
+    --logo-ix-start: #3b82f6;
+    --logo-ix-end: #a855f7;
   }
 
-  /* Light theme: clean card and muted surfaces */
   .light {
     --card: 0 0% 100%;
-    --muted: 220 14% 97%;
+    --muted: 220 18% 95%;
   }
 
   .light .bg-muted\/20 {
-    background-color: hsl(220, 14%, 97%);
+    background-color: hsl(215, 24%, 96%);
   }
 
   .light .bg-muted\/30 {
-    background-color: hsl(220, 14%, 95%);
+    background-color: hsl(215, 22%, 94%);
   }
 
 
@@ -73,41 +80,44 @@
 
   .dark {
 
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    --background: 222 84% 5%;
+    --foreground: 214 32% 91%;
 
-    --card: 222 40% 13%;
-    --card-foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 214 32% 91%;
 
-    --popover: 222 40% 13%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 214 32% 91%;
 
-    --primary: 238 84% 67%;
+    --primary: 234 89% 74%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 18%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 214 32% 91%;
 
-    --accent: 262 83% 58%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 255 92% 76%;
+    --accent-foreground: 222 84% 5%;
 
-    --muted: 220 14% 18%;
+    --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
 
-    --border: 220 14% 20%;
-    --input: 220 14% 20%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
 
-    --ring: 238 84% 67%;
+    --ring: 234 89% 74%;
 
     --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 98%;
 
-    --logo-orbit-start: #38bdf8;
-    --logo-orbit-end: #c084fc;
-    --logo-a-start: #818cf8;
-    --logo-a-end: #22d3ee;
-    --logo-ix-start: #a5b4fc;
-    --logo-ix-end: #d8b4fe;
+    --brand-primary: #818cf8;
+    --brand-accent: #a78bfa;
+
+    --logo-orbit-start: #818cf8;
+    --logo-orbit-end: #a78bfa;
+    --logo-a-start: #6366f1;
+    --logo-a-end: #a78bfa;
+    --logo-ix-start: #818cf8;
+    --logo-ix-end: #c4b5fd;
 
   }
 
@@ -136,6 +146,11 @@
     @apply font-bold tracking-tight;
   }
 
+  /* Logo wordmark: "Arshi" + SOLUTIONS use theme text; gradients use --logo-* per .light / .dark */
+  .arshionix-logo {
+    color: hsl(var(--foreground));
+  }
+
 }
 
 
@@ -161,11 +176,11 @@
   }
 }
 
-/* Light mode: softer shadow so button doesn't look flat */
+/* Light mode: blue / purple lift */
 @keyframes btn-lift-light {
   to {
     transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 12px 32px -8px rgba(99, 102, 241, 0.4), 0 8px 20px -8px rgba(139, 92, 246, 0.25);
+    box-shadow: 0 12px 32px -8px rgba(37, 99, 235, 0.35), 0 8px 20px -8px rgba(124, 58, 237, 0.22);
   }
 }
 
@@ -176,11 +191,11 @@
 @layer utilities {
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-violet-500 to-purple-600;
   }
 
   .dark .text-gradient {
-    @apply from-indigo-400 via-purple-400 to-indigo-500;
+    @apply from-indigo-400 via-purple-400 to-violet-400;
   }
 
   .bg-glass {
@@ -192,11 +207,17 @@
   }
 
   .section-padding {
-    @apply py-2 md:py-12;
+    @apply py-14 md:py-20 lg:py-24;
+  }
+
+  /* Viewport min-height: vh fallback, then dvh for mobile browser chrome */
+  .min-h-hero {
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-indigo-500/20;
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-violet-500/15;
   }
 
   .dark .card-hover {
@@ -223,6 +244,11 @@
     border-color: rgba(99, 102, 241, 0.45);
   }
 
+  .light .card-webteck-hover:hover {
+    box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 12px 24px -12px rgba(124, 58, 237, 0.16);
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+
   .dark .card-webteck-hover:hover {
     box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4), 0 12px 24px -12px rgba(99, 102, 241, 0.25);
     border-color: rgba(99, 102, 241, 0.5);
@@ -237,13 +263,25 @@
     border-color: hsl(220, 13%, 92%);
   }
 
-  /* ----- Light theme: crisp white sections (WebTeck-style) ----- */
+  /* ----- Light theme: soft cool canvas (SaaS landing) ----- */
   .light body {
-    background-color: hsl(0, 0%, 99%);
+    background-color: hsl(215, 28%, 97%);
   }
 
   .light .section-padding {
-    background: linear-gradient(180deg, transparent 0%, hsl(0, 0%, 99.5%) 50%, transparent 100%);
+    background: linear-gradient(180deg, transparent 0%, hsl(215, 28%, 98.5%) 50%, transparent 100%);
+  }
+
+  /* Elevated surface — dashboard-style cards (SaaS) */
+  .light .saas-surface {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.06);
+    border-color: hsl(214, 26%, 90%);
+  }
+
+  /* Hero wash: default (light) = blue + violet in tailwind; dark override */
+  .dark .bg-hero-pattern {
+    background-image: radial-gradient(ellipse at top left, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
   }
 
   /* ----- Colorful card accents (clean left border + subtle tint) ----- */
@@ -251,7 +289,8 @@
     border-left: 4px solid #6366f1;
   }
   .light .card-accent-indigo {
-    background: linear-gradient(90deg, rgba(99, 102, 241, 0.04) 0%, transparent 12%);
+    border-left-color: #2563eb;
+    background: linear-gradient(90deg, rgba(37, 99, 235, 0.06) 0%, transparent 12%);
   }
   .dark .card-accent-indigo {
     background: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, transparent 12%);
@@ -267,14 +306,15 @@
     background: linear-gradient(90deg, rgba(139, 92, 246, 0.08) 0%, transparent 12%);
   }
 
+  /* Legacy name "cyan" — styled as violet for blue/purple brand */
   .card-accent-cyan {
-    border-left: 4px solid #06b6d4;
+    border-left: 4px solid #7c3aed;
   }
   .light .card-accent-cyan {
-    background: linear-gradient(90deg, rgba(6, 182, 212, 0.04) 0%, transparent 12%);
+    background: linear-gradient(90deg, rgba(124, 58, 237, 0.06) 0%, transparent 12%);
   }
   .dark .card-accent-cyan {
-    background: linear-gradient(90deg, rgba(6, 182, 212, 0.08) 0%, transparent 12%);
+    background: linear-gradient(90deg, rgba(167, 139, 250, 0.08) 0%, transparent 12%);
   }
 
   .card-accent-emerald {
@@ -298,14 +338,14 @@
   }
 
   .glow {
-    box-shadow: 0 0 60px rgba(99, 102, 241, 0.35);
+    box-shadow: 0 0 60px rgba(99, 102, 241, 0.22), 0 0 80px rgba(124, 58, 237, 0.12);
   }
 
   .dark .glow {
     box-shadow: 0 0 50px rgba(99, 102, 241, 0.25);
   }
 
-  /* ----- Primary gradient button: cool gradient, text always white ----- */
+  /* ----- Primary gradient button: text always white ----- */
   .btn-gradient {
     color: #ffffff !important;
     background: linear-gradient(
@@ -322,10 +362,26 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease, background-position 0.5s ease;
   }
 
+  .light .btn-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(221, 83%, 53%) 0%,
+      hsl(250, 75%, 58%) 45%,
+      hsl(263, 70%, 50%) 50%,
+      hsl(250, 75%, 58%) 55%,
+      hsl(221, 83%, 53%) 100%
+    );
+    box-shadow: 0 4px 16px -3px rgba(37, 99, 235, 0.32), 0 2px 10px -2px rgba(124, 58, 237, 0.2);
+  }
+
   .btn-gradient:hover {
     color: #ffffff !important;
     background-position: 100% 50%;
     animation: btn-lift 0.25s ease forwards;
+  }
+
+  .light .btn-gradient:hover {
+    animation: btn-lift-light 0.25s ease forwards;
   }
 
   .btn-gradient:active {
@@ -333,19 +389,14 @@
     transform: translateY(0) scale(1);
   }
 
-  /* Light theme: primary button shadow */
-  .light .btn-gradient {
-    box-shadow: 0 4px 16px -3px rgba(99, 102, 241, 0.38), 0 2px 10px -2px rgba(139, 92, 246, 0.25);
-  }
-
-  .light .btn-gradient:hover {
-    animation: btn-lift-light 0.25s ease forwards;
-  }
-
   .btn-gradient:focus-visible {
     outline: none;
     color: #ffffff !important;
     box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(238, 84%, 67%);
+  }
+
+  .light .btn-gradient:focus-visible {
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(217, 91%, 53%);
   }
 
   /* ----- Secondary: gradient border, text stays dark in light mode ----- */
@@ -359,14 +410,15 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.2s ease;
   }
 
-  /* Light: always dark purple text so it never disappears on white */
   .light .btn-gradient-outline {
-    color: hsl(242, 47%, 35%) !important;
+    background-image: linear-gradient(hsl(var(--background)), hsl(var(--background))),
+      linear-gradient(135deg, hsl(217, 91%, 53%), hsl(262, 83%, 58%));
+    color: hsl(222, 47%, 26%) !important;
   }
 
   .light .btn-gradient-outline:hover {
-    color: hsl(242, 47%, 28%) !important;
-    box-shadow: 0 8px 24px -6px rgba(99, 102, 241, 0.3);
+    color: hsl(222, 47%, 18%) !important;
+    box-shadow: 0 8px 24px -6px rgba(99, 102, 241, 0.2);
     transform: translateY(-1px);
   }
 
@@ -447,11 +499,22 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #6366f1, #8b5cf6);
   border-radius: 3px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.light ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2563eb, #7c3aed);
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #1d4ed8, #6d28d9);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366f1, #8b5cf6);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #4f46e5, #7c3aed);
 }
 
@@ -465,10 +528,18 @@
   position: absolute;
   inset: 0;
 
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
 
   pointer-events: none;
   z-index: 0;
+}
+
+.light .noise-bg::before {
+  opacity: 0.85;
+}
+
+.dark .noise-bg::before {
+  opacity: 1;
 }
 
 

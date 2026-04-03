@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { site } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 const contactInfo = [
   { icon: Mail, label: "Email Us", value: "info@arshionix.com", href: "mailto:info@arshionix.com" },
@@ -120,7 +121,7 @@ export default function Contact() {
             )}
           </div>
 
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 min-w-0">
             <Card className="p-8 shadow-xl">
               <CardContent className="p-0">
                 {submitted ? (
@@ -190,21 +191,23 @@ export default function Contact() {
                       />
                     </div>
 
-                    <div className="space-y-1.5">
+                    <div className="space-y-1.5 min-w-0">
                       <Label>Project type</Label>
                       <select
                         name="projectType"
                         value={form.projectType}
                         onChange={handleChange}
-                        className="flex h-10 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-0"
+                        className={cn(
+                          "w-full min-w-0 min-h-10 rounded-xl border border-border bg-background px-4 py-2.5 text-sm text-foreground",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-0",
+                          "disabled:cursor-not-allowed disabled:opacity-50"
+                        )}
                       >
-                        <option value="">Select project type</option>
-                        <option>Web Development</option>
-                        <option>Software Development</option>
-                        <option>Android App</option>
-                        <option>UI/UX Design</option>
-                        <option>AI / ML</option>
-                        <option>Other</option>
+                        <option value="">Select type</option>
+                        <option value="Healthcare website">Healthcare website</option>
+                        <option value="Business website">Business website</option>
+                        <option value="Personal branding website">Personal branding website</option>
+                        <option value="Other / not sure">Other / not sure</option>
                       </select>
                     </div>
 

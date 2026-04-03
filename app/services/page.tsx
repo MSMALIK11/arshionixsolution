@@ -5,6 +5,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { serviceVerticals } from "@/lib/service-verticals";
 
 export default function ServicesPage() {
   return (
@@ -20,11 +21,18 @@ export default function ServicesPage() {
               Our <span className="text-gradient">Services</span>
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-              From web and software development to AI solutions, Android apps, and UI/UX design — we deliver end-to-end digital products.
+              Four focused tracks — each with its own page for problem, solution, features, and booking a call.
             </p>
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
+              {serviceVerticals.map((v) => (
+                <Button key={v.slug} variant="outline" size="sm" className="rounded-full border-border" asChild>
+                  <Link href={`/${v.slug}`}>{v.navLabel}</Link>
+                </Button>
+              ))}
+            </div>
             <Button asChild size="lg" className="rounded-xl">
               <Link href="/#contact">
-                Get a free quote <ArrowRight className="w-4 h-4 ml-2" />
+                Get in touch <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>
           </div>

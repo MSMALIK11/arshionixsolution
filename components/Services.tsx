@@ -1,75 +1,72 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Globe, Code2, Smartphone, Palette, Mic } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, HeartPulse, Building2, UserRound, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 const services = [
   {
-    title: "Web Development",
-    tagline: "Websites & web apps that scale",
+    title: "Healthcare website development",
+    shortTitle: "Healthcare",
+    tagline: "Trust, clarity, and patient-friendly UX",
+    href: "/healthcare-websites",
     description:
-      "We build fast, modern web applications tailored to your goals — marketing sites, e-commerce, or SaaS. From design to deployment, you get a custom solution (React, Next.js, Node.js) that’s performant, SEO-friendly, and works on every device.",
+      "Sites for clinics, doctors, and health practices — professional design, easy navigation, and clear paths to book or call. Built to feel credible the moment someone lands on your page.",
     benefits: [
-      { label: "Custom-built", text: "No templates — built for your brand and requirements." },
-      { label: "Modern stack", text: "React, Next.js, Node.js — future-proof and maintainable." },
-      { label: "SEO & performance", text: "Fast load times and search-friendly from day one." },
-      { label: "Responsive & accessible", text: "Works on all devices; we follow WCAG standards." },
+      { label: "Medical context", text: "Layouts and content structure that fit how patients search and decide." },
+      { label: "Mobile-first", text: "Most health searches happen on phones — we optimize for that." },
+      { label: "Local visibility", text: "SEO-friendly structure for your city, specialty, and services." },
+      { label: "Your workflows", text: "We connect CTAs to the booking or contact tools you already use." },
     ],
-    icon: Globe,
+    icon: HeartPulse,
   },
   {
-    title: "Software Development",
-    tagline: "Custom software & backends",
+    title: "Business website development",
+    shortTitle: "Business",
+    tagline: "Leads, not just a pretty page",
+    href: "/business-websites",
     description:
-      "We build end-to-end software that solves real business problems — internal tools, dashboards, APIs, or enterprise platforms. Full lifecycle: architecture, development, testing, deployment, and ongoing support.",
+      "Websites for local and growing businesses that need to explain services, show proof, and get inquiries — with fast load times and copy that makes sense to real customers.",
     benefits: [
-      { label: "Scalable architecture", text: "Systems designed to grow with your business." },
-      { label: "Agile delivery", text: "Bi-weekly demos so you see progress and give feedback early." },
-      { label: "Right stack for the job", text: "Web, desktop, or API — we pick the best fit." },
-      { label: "Post-launch support", text: "Maintenance, updates, and support after go-live." },
+      { label: "Clear offer", text: "Homepage and service pages that say what you do in seconds." },
+      { label: "Trust", text: "Reviews, logos, team — whatever helps people choose you." },
+      { label: "Contact that works", text: "Forms, click-to-call, maps — friction removed." },
+      { label: "Room to grow", text: "Add pages or blog later without rebuilding from scratch." },
     ],
-    icon: Code2,
+    icon: Building2,
   },
   {
-    title: "Android Development",
-    tagline: "Native & cross-platform mobile apps",
+    title: "Personal branding websites",
+    shortTitle: "Personal brand",
+    tagline: "One site for your whole story",
+    href: "/personal-branding-websites",
     description:
-      "We build Android apps (native with Kotlin or cross-platform) that users love — from idea to Play Store. High performance, intuitive UX, and we handle publishing and ASO so your app gets discovered.",
+      "Flagship sites for coaches, consultants, creators, and experts — story-led, portfolio-ready, and built around one primary action (book, subscribe, or apply).",
     benefits: [
-      { label: "Native or cross-platform", text: "Kotlin for Android; React Native when you need iOS too." },
-      { label: "Intuitive UX", text: "Material Design and usability testing built in." },
-      { label: "Offline & real-time", text: "Push, sync, and offline support where it matters." },
-      { label: "Launch & ASO", text: "We handle Play Store submission and optimization." },
+      { label: "Positioning", text: "Sharp headline and sections that say who you help and how." },
+      { label: "Proof", text: "Work samples, media, speaking — organized for skimmers." },
+      { label: "Single CTA", text: "We guide visitors to one main next step." },
+      { label: "Brand voice", text: "Tone and visuals aligned with how you show up elsewhere." },
     ],
-    icon: Smartphone,
+    icon: UserRound,
   },
   {
-    title: "UI/UX Design",
-    tagline: "Interfaces users love",
+    title: "School & education website development",
+    shortTitle: "Schools",
+    tagline: "Admissions-ready, parent-friendly sites",
+    href: "/school-websites",
     description:
-      "We design product experiences that reduce friction and drive results — from research and wireframes to Figma prototypes and design systems. You get a clear vision and specs so development matches the design.",
+      "Sites for schools, colleges, and training programs — clear navigation for families, strong mobile experience, and structured pages for programs, admissions, and news.",
     benefits: [
-      { label: "Research first", text: "We understand your users before we design." },
-      { label: "Prototypes you can click", text: "Figma prototypes to test ideas before build." },
-      { label: "Design systems", text: "Component libraries and tokens for consistency." },
-      { label: "Clean handoff", text: "Specs and collaboration so dev matches the vision." },
+      { label: "Families first", text: "Paths for new and current parents without hunting through PDFs." },
+      { label: "Programs & admissions", text: "What you offer, how to apply, and who to contact — spelled out." },
+      { label: "Trust & values", text: "Leadership, faculty, and community story presented with clarity." },
+      { label: "Accessible & fast", text: "Readable, responsive layouts that work where parents actually browse." },
     ],
-    icon: Palette,
-  },
-  {
-    title: "AI Voice Agent",
-    tagline: "Voice-first conversational AI",
-    description:
-      "We build voice AI solutions for support, sales, and automation — inbound and outbound calls, IVR replacement, and conversational flows. Design flows in a visual editor, plug in your LLMs, and go live with full control and analytics.",
-    benefits: [
-      { label: "Live voice in & out", text: "Streaming speech-to-text and neural TTS so callers talk naturally." },
-      { label: "Visual flow builder", text: "Design and update call flows without hard-coded decision trees." },
-      { label: "Handoff & compliance", text: "Transfer to agents with context; rules and audit trails built in." },
-      { label: "Your stack", text: "REST, webhooks, telephony, and CRM integrations so it fits your ops." },
-    ],
-    icon: Mic,
+    icon: GraduationCap,
   },
 ];
 
@@ -78,42 +75,59 @@ export default function Services() {
   const active = services[activeIndex];
 
   return (
-    <section id="services" className="section-padding relative">
+    <section id="services" className="section-padding relative scroll-mt-24">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-500/3 to-transparent pointer-events-none" />
 
       <div className="container mx-auto px-6 relative">
         <div className="mb-10">
           <span className="inline-flex items-center gap-2 text-brand-400 text-sm font-semibold tracking-widest uppercase mb-3">
             <span className="w-5 h-0.5 bg-brand-400 inline-block" />
-            What We Do
+            Our services
           </span>
           <h2 className="font-heading text-4xl md:text-5xl font-bold">
-            Our <span className="text-gradient">Services</span>
+            What we <span className="text-gradient">build</span>
           </h2>
-          <p className="text-muted-foreground mt-2 max-w-2xl">
-            We do five things: <strong className="text-foreground/90">web development</strong>, <strong className="text-foreground/90">custom software</strong>, <strong className="text-foreground/90">Android apps</strong>, <strong className="text-foreground/90">UI/UX design</strong>, and <strong className="text-foreground/90">AI voice agent</strong>. Pick one below to see details.
+          <p className="text-muted-foreground mt-2 max-w-2xl text-lg">
+            Four structured offerings — each with a{" "}
+            <strong className="text-foreground/90">dedicated page</strong> for problem, solution, features, and how to
+            book a call.
           </p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-0 overflow-hidden rounded-2xl card-webteck card-webteck-hover">
-          <nav className="lg:w-72 xl:w-80 flex-shrink-0 bg-[#0d1528] overflow-y-auto max-h-[400px] lg:max-h-none">
+          <nav
+            aria-label="Service categories"
+            className="lg:w-72 xl:w-80 flex-shrink-0 bg-muted/80 dark:bg-muted overflow-y-auto max-h-[320px] lg:max-h-none border-b border-border lg:border-b-0 lg:border-r"
+          >
             <ul>
               {services.map((service, i) => {
                 const Icon = service.icon;
                 return (
-                  <li key={service.title}>
+                  <li key={service.href}>
                     <button
+                      type="button"
                       onClick={() => setActiveIndex(i)}
-                      className={`w-full text-left px-5 py-3.5 flex items-center gap-3 transition-all duration-200 border-b border-white/5 ${
+                      className={cn(
+                        "w-full text-left px-5 py-3.5 flex items-center gap-3 transition-all duration-200 border-b border-border last:border-b-0",
                         activeIndex === i
-                          ? "bg-gradient-to-r from-brand-500 to-violet-600 text-white"
-                          : "text-slate-300 hover:text-white hover:bg-white/5"
-                      }`}
+                          ? "bg-gradient-to-r from-brand-500 to-violet-600 text-primary-foreground shadow-sm"
+                          : "text-muted-foreground hover:text-foreground hover:bg-background/70 dark:hover:bg-card/60"
+                      )}
                     >
-                      <Icon className="w-5 h-5 flex-shrink-0 opacity-80" />
-                      <span className="flex flex-col items-start">
-                        <span className="font-semibold text-sm">{service.title}</span>
-                        <span className={`text-xs mt-0.5 ${activeIndex === i ? "text-white/80" : "text-slate-400"}`}>
+                      <Icon
+                        className={cn(
+                          "w-5 h-5 flex-shrink-0",
+                          activeIndex === i ? "opacity-95" : "opacity-80"
+                        )}
+                      />
+                      <span className="flex flex-col items-start min-w-0">
+                        <span className="font-semibold text-sm leading-snug">{service.shortTitle}</span>
+                        <span
+                          className={cn(
+                            "text-xs mt-0.5",
+                            activeIndex === i ? "text-primary-foreground/85" : "text-muted-foreground"
+                          )}
+                        >
                           {service.tagline}
                         </span>
                       </span>
@@ -124,14 +138,12 @@ export default function Services() {
             </ul>
           </nav>
 
-          <div className="flex-1 bg-background dark:bg-card p-8 md:p-10 flex flex-col justify-between min-h-[440px]">
+          <div className="flex-1 bg-background dark:bg-card p-8 md:p-10 flex flex-col justify-between min-h-[400px]">
             <div>
               <h3 className="font-heading text-2xl md:text-3xl font-bold mb-1">{active.title}</h3>
               <p className="text-brand-400 font-medium text-sm mb-4">{active.tagline}</p>
-              <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-6">
-                {active.description}
-              </p>
-              <p className="text-foreground font-semibold text-sm mb-3">What you get</p>
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-6">{active.description}</p>
+              <p className="text-foreground font-semibold text-sm mb-3">Highlights</p>
               <ul className="space-y-2.5">
                 {active.benefits.map((b) => (
                   <li key={b.label} className="flex items-start gap-3 text-sm leading-relaxed">
@@ -144,12 +156,18 @@ export default function Services() {
                 ))}
               </ul>
             </div>
-            <CardFooter className="mt-8 flex justify-end p-0">
+            <CardFooter className="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-end gap-3 p-0">
+              <Button variant="outline" className="rounded-xl border-border" asChild>
+                <Link href={active.href}>
+                  Full page
+                  <ArrowUpRight className="w-4 h-4 ml-1" />
+                </Link>
+              </Button>
               <Button
                 onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
                 className="group rounded-xl shadow-lg"
               >
-                Get a quote for {active.title}
+                Discuss {active.shortTitle.toLowerCase()}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </CardFooter>

@@ -6,7 +6,6 @@ import { site } from "@/lib/site";
 
 const AUTO_HIDE_MS = 10_000;
 
-const PRIMARY_PHONE = "7300519548";
 const PRIMARY_TEL = "+917300519548";
 const PRIMARY_DISPLAY = "+91 73005 19548";
 const WHATSAPP_NUMBER = "917300519548";

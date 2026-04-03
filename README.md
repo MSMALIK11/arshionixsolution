@@ -1,16 +1,23 @@
-# React + Vite
+# Arshionix
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Next.js 15 app (App Router). See `docs/THEME.md` for design tokens.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| Command | Purpose |
+|--------|---------|
+| `npm run dev` | Dev server (Webpack HMR — default; avoids Turbopack ping/HMR noise) |
+| `npm run dev:turbo` | Dev with **Turbopack** (faster; may log `unrecognized HMR message "ping"` with some browsers/IDE previews) |
+| `npm run dev:clean` | Delete `.next` + cache, then dev |
+| `npm run clean` | Remove `.next` and `node_modules/.cache` only |
+| `npm run build` / `npm start` | Production build & serve |
 
-## React Compiler
+## Dev errors: `Cannot find module './XXX.js'` or `__webpack_modules__...`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The `.next` folder is out of sync (common after interrupted compiles, two dev servers, or switching git branches while `next dev` runs).
 
-## Expanding the ESLint configuration
+1. Stop **all** `next dev` / `next start` processes for this repo.
+2. Run: `npm run clean`
+3. Start again: `npm run dev`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Set `NEXT_PUBLIC_SITE_URL` in `.env.local` for correct canonical URLs in production.

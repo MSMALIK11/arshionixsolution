@@ -6,26 +6,23 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { getProductsForNavigation } from "@/lib/projects";
 import BrandLogo from "@/components/BrandLogo";
-
-const navProducts = getProductsForNavigation();
+import ThemeToggle from "@/components/ThemeToggle";
+import { serviceVerticals } from "@/lib/service-verticals";
 
 const navLinks = [
-  { href: "/", label: "Home", hash: "#home" },
-  { href: "/services", label: "Services", hash: "#services" },
-  { href: "/about", label: "About", hash: "#about" },
-  { href: "/portfolio", label: "Work", hash: undefined },
-  { href: "/", label: "Process", hash: "#process" },
-  { href: "/contact", label: "Contact", hash: "#contact" },
+  { href: "/", label: "Home", hash: "#home" as string | undefined },
+  { href: "/portfolio", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
-  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const productsRef = useRef<HTMLDivElement>(null);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const servicesRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -37,24 +34,25 @@ export default function Navbar() {
 
   useEffect(() => {
     const close = (e: MouseEvent) => {
-      if (productsRef.current && !productsRef.current.contains(e.target as Node)) {
-        setProductsOpen(false);
+      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
+        setServicesOpen(false);
       }
     };
     document.addEventListener("click", close);
     return () => document.removeEventListener("click", close);
   }, []);
 
-  const handleNavClick = (link: (typeof navLinks)[0]) => {
+  const handleNavClick = (link: (typeof navLinks)[0] & { hash?: string }) => {
     setMobileOpen(false);
-    if (pathname === link.href && link.hash) {
+    if (link.hash && pathname === link.href) {
       const el = document.querySelector(link.hash);
       if (el) el.scrollIntoView({ behavior: "smooth" });
       return;
     }
     if (link.hash && link.href === "/") {
-      router.push(link.href + link.hash);
-      setTimeout(() => document.querySelector(link.hash)?.scrollIntoView({ behavior: "smooth" }), 100);
+      const hash = link.hash;
+      router.push(link.href + hash);
+      setTimeout(() => document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" }), 100);
       return;
     }
     router.push(link.href);
@@ -74,66 +72,59 @@ export default function Navbar() {
           <BrandLogo variant="compact" />
 
           <nav className="hidden md:flex items-center gap-1">
-            {navLinks.slice(0, 2).map((link) => (
-              <button
-                key={link.label}
-                onClick={() => handleNavClick(link)}
-                className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
-              >
-                {link.label}
-                <span className="absolute inset-x-4 bottom-0 h-0.5 bg-gradient-to-r from-brand-400 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
-              </button>
-            ))}
+            <button
+              onClick={() => handleNavClick(navLinks[0])}
+              className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+            >
+              Home
+              <span className="absolute inset-x-4 bottom-0 h-0.5 bg-gradient-to-r from-brand-400 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
+            </button>
 
             <div
-              ref={productsRef}
+              ref={servicesRef}
               className="relative"
-              onMouseEnter={() => setProductsOpen(true)}
-              onMouseLeave={() => setProductsOpen(false)}
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
             >
               <button
                 type="button"
-                onClick={() => setProductsOpen((o) => !o)}
+                onClick={() => setServicesOpen((o) => !o)}
                 className={cn(
                   "relative px-4 py-2 text-sm font-medium transition-colors group flex items-center gap-1",
-                  productsOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                  servicesOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                Products
-                <ChevronDown className={cn("w-4 h-4 transition-transform", productsOpen && "rotate-180")} />
+                Services
+                <ChevronDown className={cn("w-4 h-4 transition-transform", servicesOpen && "rotate-180")} />
                 <span className="absolute inset-x-4 bottom-0 h-0.5 bg-gradient-to-r from-brand-400 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
               </button>
-              {productsOpen && (
-                <div className="absolute top-full left-0 pt-1 min-w-[280px] z-50">
+              {servicesOpen && (
+                <div className="absolute top-full left-0 pt-1 min-w-[260px] z-50">
                   <div className="rounded-xl border border-border bg-card shadow-xl py-2 overflow-hidden">
-                    {navProducts.map((p) =>
-                      p.href ? (
-                        <Link
-                          key={p.slug}
-                          href={p.href}
-                          onClick={() => setProductsOpen(false)}
-                          className="block px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent hover:text-brand-400 transition-colors"
-                        >
-                          {p.title}
-                        </Link>
-                      ) : (
-                        <div
-                          key={p.slug}
-                          className="px-4 py-2.5 text-sm text-muted-foreground cursor-default flex items-center justify-between gap-2"
-                        >
-                          <span>{p.title}</span>
-                          <span className="text-[10px] uppercase tracking-wider font-semibold text-brand-400/80">
-                            Soon
-                          </span>
-                        </div>
-                      )
-                    )}
+                    {serviceVerticals.map((v) => (
+                      <Link
+                        key={v.slug}
+                        href={`/${v.slug}`}
+                        onClick={() => setServicesOpen(false)}
+                        className="block px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent hover:text-brand-400 transition-colors"
+                      >
+                        {v.navLabel}
+                      </Link>
+                    ))}
+                    <div className="border-t border-border my-1" />
+                    <Link
+                      href="/services"
+                      onClick={() => setServicesOpen(false)}
+                      className="block px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground hover:text-brand-400 hover:bg-accent transition-colors"
+                    >
+                      All services overview →
+                    </Link>
                   </div>
                 </div>
               )}
             </div>
 
-            {navLinks.slice(2).map((link) => (
+            {navLinks.slice(1).map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleNavClick(link)}
@@ -143,82 +134,76 @@ export default function Navbar() {
                 <span className="absolute inset-x-4 bottom-0 h-0.5 bg-gradient-to-r from-brand-400 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
               </button>
             ))}
-            <Link
-              href="/careers"
-              className="relative px-4 py-2 text-sm font-medium text-brand-400 hover:text-brand-300 transition-colors group"
-            >
-              Careers
-              <span className="absolute inset-x-4 bottom-0 h-0.5 bg-gradient-to-r from-brand-400 to-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full" />
-            </Link>
           </nav>
 
-          <div className="hidden md:flex items-center gap-3">
-            <Button
-              onClick={() => handleNavClick(navLinks.find((l) => l.label === "Contact")!)}
-              size="default"
-              className="rounded-xl"
+          <div className="flex items-center gap-2 sm:gap-3">
+            <ThemeToggle />
+            <div className="hidden md:block">
+              <Button
+                onClick={() => router.push("/contact")}
+                size="default"
+                className="rounded-xl"
+              >
+                Book / contact
+              </Button>
+            </div>
+            <button
+              type="button"
+              className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
-              Get a Quote
-            </Button>
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
-
-          <button
-            className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
         </div>
       </div>
 
       <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-300",
-          mobileOpen ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
+          mobileOpen ? "max-h-[min(85vh,28rem)] overflow-y-auto opacity-100" : "max-h-0 opacity-0"
         )}
       >
         <div className="bg-background/95 backdrop-blur-xl border-b border-border px-6 pb-6 space-y-1">
-          {navLinks.slice(0, 2).map((link) => (
-            <button
-              key={link.label}
-              onClick={() => handleNavClick(link)}
-              className="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-            >
-              {link.label}
-            </button>
-          ))}
+          <button
+            onClick={() => handleNavClick(navLinks[0])}
+            className="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+          >
+            Home
+          </button>
           <div>
             <button
               type="button"
-              onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
+              onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
               className="flex w-full items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             >
-              Products
-              <ChevronDown className={cn("w-4 h-4 transition-transform", mobileProductsOpen && "rotate-180")} />
+              Services
+              <ChevronDown className={cn("w-4 h-4 transition-transform", mobileServicesOpen && "rotate-180")} />
             </button>
-            {mobileProductsOpen && (
+            {mobileServicesOpen && (
               <div className="pl-4 border-l-2 border-brand-500/30 ml-4 my-1 space-y-0.5">
-                {navProducts.map((p) =>
-                  p.href ? (
-                    <Link
-                      key={p.slug}
-                      href={p.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="block px-4 py-2 text-sm text-foreground hover:text-brand-400"
-                    >
-                      {p.title}
-                    </Link>
-                  ) : (
-                    <div key={p.slug} className="px-4 py-2 text-sm text-muted-foreground flex justify-between gap-2">
-                      <span>{p.title}</span>
-                      <span className="text-xs text-brand-400">Soon</span>
-                    </div>
-                  )
-                )}
+                {serviceVerticals.map((v) => (
+                  <Link
+                    key={v.slug}
+                    href={`/${v.slug}`}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-2 text-sm text-foreground hover:text-brand-400"
+                  >
+                    {v.navLabel}
+                  </Link>
+                ))}
+                <Link
+                  href="/services"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-4 py-2 text-sm font-medium text-brand-400"
+                >
+                  All services
+                </Link>
               </div>
             )}
           </div>
-          {navLinks.slice(2).map((link) => (
+          {navLinks.slice(1).map((link) => (
             <button
               key={link.label}
               onClick={() => handleNavClick(link)}
@@ -227,19 +212,9 @@ export default function Navbar() {
               {link.label}
             </button>
           ))}
-          <Link
-            href="/careers"
-            onClick={() => setMobileOpen(false)}
-            className="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-brand-400 hover:text-brand-300 hover:bg-accent transition-colors"
-          >
-            Careers
-          </Link>
-          <div className="flex items-center gap-2 mt-2">
-            <Button
-              onClick={() => handleNavClick(navLinks.find((l) => l.label === "Contact")!)}
-              className="flex-1 rounded-xl"
-            >
-              Get a Quote
+          <div className="pt-2">
+            <Button onClick={() => { setMobileOpen(false); router.push("/contact"); }} className="w-full rounded-xl">
+              Book / contact
             </Button>
           </div>
         </div>

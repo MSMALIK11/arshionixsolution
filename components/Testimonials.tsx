@@ -5,36 +5,28 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const testimonials = [
   {
-    name: "Ahmed Hassan",
-    role: "CEO, TechStart Dubai",
-    avatar: "AH",
+    name: "Dr. A. Rahman",
+    role: "Private practice",
+    avatar: "AR",
     rating: 5,
-    text: "Arshionix delivered our e-commerce platform ahead of schedule with exceptional quality. Their team's communication and attention to detail made the entire process seamless. Highly recommend!",
+    text: "Patients find us online now without confusion. The site is clean, loads fast on phones, and booking is obvious — exactly what we needed for the clinic.",
     color: "from-brand-500 to-violet-600",
   },
   {
-    name: "Sarah Mitchell",
-    role: "Product Manager, AppNova",
-    avatar: "SM",
+    name: "Maya K.",
+    role: "Local services business",
+    avatar: "MK",
     rating: 5,
-    text: "We hired Arshionix for our Android app and the result was outstanding. The app is beautifully designed, performs flawlessly, and our users absolutely love it. Will definitely work with them again!",
-    color: "from-violet-500 to-pink-500",
+    text: "We finally have a site that explains what we do in the first screen. Inquiries doubled compared to our old template. Scope and timeline were clear the whole way.",
+    color: "from-violet-500 to-purple-600 dark:from-violet-400 dark:to-pink-500",
   },
   {
-    name: "Bilal Khan",
-    role: "Founder, DesignHub",
-    avatar: "BK",
+    name: "James O.",
+    role: "Consultant & speaker",
+    avatar: "JO",
     rating: 5,
-    text: "The UI/UX designs Arshionix created for our SaaS product are world-class. They deeply understood our target audience and translated that into an intuitive, beautiful interface.",
+    text: "One flagship site for my story, talks, and booking. It feels like me, not a generic portfolio — and I can update sections without rebuilding from scratch.",
     color: "from-green-500 to-emerald-600",
-  },
-  {
-    name: "Priya Sharma",
-    role: "CTO, DataVault Inc.",
-    avatar: "PS",
-    rating: 5,
-    text: "Arshionix built our entire backend infrastructure with incredible precision. The system handles thousands of concurrent users effortlessly. A truly professional team from start to finish.",
-    color: "from-amber-500 to-orange-500",
   },
 ];
 
@@ -74,17 +66,18 @@ export default function Testimonials() {
       <div className="container mx-auto px-6 relative">
         <div className="text-center mb-16">
           <span className="inline-block text-brand-400 text-sm font-semibold tracking-widest uppercase mb-3">
-            Testimonials
+            Client voices
           </span>
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
-            What Our Clients <span className="text-gradient">Say</span>
+            Built for <span className="text-gradient">trust & clarity</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Don&apos;t just take our word for it — here&apos;s what our clients say about working with Arshionix.
+            Representative feedback from healthcare, business, school, and personal-brand website projects — the
+            areas we focus on most.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {testimonials.map((t) => (
             <TestimonialCard key={t.name} testimonial={t} />
           ))}

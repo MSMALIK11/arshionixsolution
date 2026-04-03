@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { escapeHtml } from "@/lib/escape-html";
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 // Where contact form submissions are delivered (your inbox)
@@ -9,15 +10,6 @@ const RESEND_FROM = process.env.RESEND_FROM_EMAIL ?? "Arshionix <noreply@arshion
 const MAX_NAME_LENGTH = 120;
 const MAX_MESSAGE_LENGTH = 5000;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/\n/g, "<br>");
-}
 
 export async function POST(request: Request) {
   try {

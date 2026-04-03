@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/blog";
+import { getAllProjectSlugs } from "@/lib/projects";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://arshionix.com";
 
@@ -11,6 +12,10 @@ const staticPages: { url: string; changeFrequency: "weekly" | "monthly"; priorit
   { url: `${BASE_URL}/contact`, changeFrequency: "monthly", priority: 0.8 },
   { url: `${BASE_URL}/blog`, changeFrequency: "weekly", priority: 0.8 },
   { url: `${BASE_URL}/careers`, changeFrequency: "weekly", priority: 0.8 },
+  { url: `${BASE_URL}/healthcare-websites`, changeFrequency: "weekly", priority: 0.95 },
+  { url: `${BASE_URL}/business-websites`, changeFrequency: "weekly", priority: 0.95 },
+  { url: `${BASE_URL}/personal-branding-websites`, changeFrequency: "weekly", priority: 0.95 },
+  { url: `${BASE_URL}/school-websites`, changeFrequency: "weekly", priority: 0.95 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -27,5 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
-  return [...staticEntries, ...blogEntries];
+  const portfolioSlugs = getAllProjectSlugs();
+  const portfolioEntries: MetadataRoute.Sitemap = portfolioSlugs.map((slug) => ({
+    url: `${BASE_URL}/portfolio/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
+  }));
+  return [...staticEntries, ...portfolioEntries, ...blogEntries];
 }

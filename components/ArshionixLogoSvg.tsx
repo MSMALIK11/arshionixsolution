@@ -52,7 +52,7 @@ export function ArshionixLogoSvg({
         </linearGradient>
         <linearGradient id={gTri} x1="0%" y1="100%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="var(--logo-a-start, #4f46e5)" />
-          <stop offset="100%" stopColor="var(--logo-a-end, #06b6d4)" />
+          <stop offset="100%" stopColor="var(--logo-a-end, #7c3aed)" />
         </linearGradient>
         <linearGradient id={gIx} x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="var(--logo-ix-start, #6366f1)" />
@@ -74,14 +74,14 @@ export function ArshionixLogoSvg({
           rx="20"
           ry="10"
           transform="rotate(-18 24 24)"
-          stroke="white"
+          stroke={`url(#${gOrbit})`}
           strokeWidth="2.4"
           fill="none"
           filter={`url(#${uid}_g)`}
         />
         <path
           d="M24 10 L36 38 H30 L27 30 H21 L18 38 H12 L24 10 Z M22.5 25 H25.5 L24 16.5 L22.5 25 Z"
-          fill="white"
+          fill={`url(#${gTri})`}
           filter={`url(#${uid}_g)`}
         />
       </g>

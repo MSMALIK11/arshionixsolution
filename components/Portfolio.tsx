@@ -60,8 +60,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           aria-hidden
         />
         <div
-          className="absolute bottom-0 left-0 w-20 h-20 rounded-full opacity-[0.08] dark:opacity-[0.06] blur-xl pointer-events-none"
-          style={{ background: "linear-gradient(135deg, #06b6d4 0%, #6366f1 100%)" }}
+          className="absolute bottom-0 left-0 w-20 h-20 rounded-full opacity-[0.1] dark:opacity-[0.06] blur-xl pointer-events-none bg-gradient-to-br from-blue-500 to-violet-600 dark:from-indigo-500 dark:to-violet-600"
           aria-hidden
         />
         {hasDetail && !isComingSoon && (
@@ -75,7 +74,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </div>
         )}
 
-        <div className={cn("project-card-image-wrap relative h-36 flex items-center justify-center", !screenshot && color)}>
+        <div
+          className={cn(
+            "project-card-image-wrap relative h-36 flex items-center justify-center",
+            !screenshot && "bg-gradient-to-br",
+            !screenshot && color
+          )}
+        >
           {screenshot ? (
             <>
               <Image
@@ -185,21 +190,26 @@ export default function Portfolio() {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="portfolio" className="section-padding relative">
+    <section id="portfolio" className="section-padding relative scroll-mt-24 pt-24 md:pt-28">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/3 to-transparent pointer-events-none" />
 
       <div className="container mx-auto px-6 relative">
         <div className="text-center mb-12">
           <span className="inline-flex items-center gap-2 text-brand-400 text-sm font-semibold tracking-widest uppercase mb-3">
             <span className="w-5 h-0.5 bg-brand-400 rounded-full" />
-            Our Work
+            Our work
           </span>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
-            Featured <span className="text-gradient">Projects</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A preview of our work across web, software, mobile, and design. Click any project for full details.
+          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+            Featured <span className="text-gradient">projects</span>
+          </h1>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
+            A selection of our work across web, software, mobile, and design. Click any project for full details.
           </p>
+          <Button asChild variant="secondary" size="lg" className="rounded-xl">
+            <Link href="/#contact">
+              Start your project <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </Button>
         </div>
 
         <div className="flex flex-wrap justify-center gap-2 mb-10">

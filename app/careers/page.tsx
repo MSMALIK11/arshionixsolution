@@ -62,9 +62,9 @@ const typeColors: Record<string, string> = {
 
 const deptColors: Record<string, string> = {
   Engineering: "bg-brand-500/15 text-brand-400",
-  Mobile: "bg-violet-500/15 text-violet-400",
+  Mobile: "bg-violet-500/15 text-violet-700 dark:bg-violet-500/15 dark:text-violet-400",
   Design: "bg-pink-500/15 text-pink-400",
-  Infrastructure: "bg-cyan-500/15 text-cyan-400",
+  Infrastructure: "bg-brand-500/15 text-brand-600 dark:text-brand-400",
   Marketing: "bg-orange-500/15 text-orange-400",
 };
 

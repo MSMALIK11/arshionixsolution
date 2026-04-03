@@ -1,101 +1,192 @@
-"use client";
-
-import { Award, Users, Globe, Star } from "lucide-react";
+import Link from "next/link";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CheckCircle2,
+  Clock,
+  GraduationCap,
+  LayoutGrid,
+  MessageCircle,
+  Sparkles,
+  Stethoscope,
+  Store,
+  Target,
+  UserRound,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { serviceVerticals } from "@/lib/service-verticals";
 
-const stats = [
-  { icon: Award, value: "50+", label: "Projects Delivered" },
-  { icon: Users, value: "30+", label: "Happy Clients" },
-  { icon: Globe, value: "10+", label: "Countries Served" },
-  { icon: Star, value: "5★", label: "Average Rating" },
+const slugIcon = {
+  "healthcare-websites": Stethoscope,
+  "business-websites": Store,
+  "personal-branding-websites": UserRound,
+  "school-websites": GraduationCap,
+} as const;
+
+const trustChips = [
+  { icon: Clock, text: "Reply within 24 hours" },
+  { icon: Target, text: "Clear scope before kickoff" },
+  { icon: Sparkles, text: "Mobile-first & fast" },
 ];
 
-const values = [
-  { title: "Quality First", desc: "We never ship anything we're not proud of." },
-  { title: "On-Time Delivery", desc: "Deadlines are a promise, not a suggestion." },
-  { title: "Transparent Communication", desc: "You're always in the loop, every step of the way." },
+const pillars = [
+  {
+    icon: MessageCircle,
+    title: "Straight talk",
+    desc: "We tell you what we do — and what we don’t — so you’re never guessing what you’re buying.",
+  },
+  {
+    icon: CheckCircle2,
+    title: "Structured offers",
+    desc: "Each audience has its own page: problem, approach, deliverables, and how to book a call.",
+  },
+  {
+    icon: ArrowRight,
+    title: "One next step",
+    desc: "Contact or book a call. No funnels, no runaround — just a clear path when you’re ready.",
+  },
 ];
 
 export default function About() {
   return (
-    <section id="about" className="section-padding">
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative order-2 lg:order-1">
-            <div className="relative mx-auto w-80 h-80 md:w-96 md:h-96">
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-500/20 to-violet-600/20 rounded-3xl rotate-6" />
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-brand-600/20 rounded-3xl -rotate-3" />
-              <Card className="relative w-full h-full flex items-center justify-center overflow-hidden shadow-2xl rounded-3xl border-border">
-                <CardContent className="text-center p-8">
-                  <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-brand-500 to-violet-600 mx-auto mb-6 flex items-center justify-center shadow-xl">
-                    <span className="font-heading font-black text-5xl text-white">A</span>
-                  </div>
-                  <h3 className="font-heading text-2xl font-bold mb-1">Arshionix</h3>
-                  <p className="text-muted-foreground text-sm mb-4">Digital Agency & Software Studio</p>
-                  <div className="space-y-2">
-                    {values.map((v) => (
-                      <div key={v.title} className="flex items-start gap-2 text-left p-2 rounded-lg bg-muted/40">
-                        <div className="w-1.5 h-1.5 rounded-full bg-brand-400 mt-1.5 flex-shrink-0" />
-                        <div>
-                          <p className="text-xs font-semibold">{v.title}</p>
-                          <p className="text-xs text-muted-foreground">{v.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-              <div className="absolute -top-5 -right-5 bg-card border border-brand-500/30 rounded-2xl px-4 py-2 shadow-xl">
-                <p className="text-xs text-muted-foreground">Founded</p>
-                <p className="font-bold text-brand-400">2022</p>
-              </div>
-            </div>
-          </div>
+    <section
+      id="about"
+      className="section-padding relative scroll-mt-24 overflow-hidden border-y border-border bg-gradient-to-b from-muted/30 via-background to-muted/20"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(37,99,235,0.08),transparent)] dark:bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(99,102,241,0.12),transparent)]"
+        aria-hidden
+      />
 
-          <div className="order-1 lg:order-2">
-            <span className="inline-block text-brand-400 text-sm font-semibold tracking-widest uppercase mb-3">
-              Who We Are
-            </span>
-            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6">
-              A Team Passionate About{" "}
-              <span className="text-gradient">Digital Excellence</span>
-            </h2>
-            <p className="text-brand-400 font-semibold mb-4">
-              We&apos;re the technical partner that ships on time and stays until it&apos;s right.
-            </p>
-            <div className="space-y-4 text-muted-foreground leading-relaxed mb-8">
-              <p>
-                <strong className="text-foreground">Arshionix</strong> is a full-service digital agency built by a team of passionate developers, designers, and engineers who love solving complex problems with elegant solutions.
-              </p>
-              <p>
-                Founded by Shoaibi, our agency has grown into a collaborative team delivering world-class web apps, robust software systems, native Android applications, and intuitive UI/UX designs for clients across the globe.
-              </p>
-              <p>
-                We work as an extension of your team — aligned with your goals, committed to your success, and obsessed with quality at every level.
-              </p>
-            </div>
+      <div className="container relative mx-auto px-6">
+        {/* Header */}
+        <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
+          <span className="inline-flex items-center gap-2 text-brand-600 text-sm font-semibold tracking-[0.2em] uppercase dark:text-brand-400">
+            <span className="h-px w-8 bg-brand-500/60" aria-hidden />
+            About us
+            <span className="h-px w-8 bg-brand-500/60" aria-hidden />
+          </span>
+          <h2 className="font-heading mt-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-[2.75rem] lg:leading-tight">
+            Websites that earn trust —{" "}
+            <span className="text-gradient">before the first call</span>
+          </h2>
+          <p className="mt-5 text-lg leading-relaxed text-muted-foreground md:text-xl">
+            Arshionix is a focused studio: we build high-trust sites for practices, businesses, schools, and personal
+            brands. You always know which door to open.
+          </p>
+        </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-              {stats.map(({ icon: Icon, value, label }) => (
-                <Card key={label} className="text-center p-4 hover:border-brand-500/30 transition-colors">
-                  <CardContent className="p-0">
-                    <Icon className="w-5 h-5 text-brand-400 mx-auto mb-2" />
-                    <p className="font-heading text-2xl font-bold text-gradient">{value}</p>
-                    <p className="text-xs text-muted-foreground">{label}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <Button
-              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-              size="lg"
-              className="rounded-xl shadow-xl"
+        {/* Trust strip */}
+        <div className="mx-auto mb-14 flex max-w-4xl flex-wrap justify-center gap-3 md:mb-16 md:gap-4">
+          {trustChips.map(({ icon: Icon, text }) => (
+            <div
+              key={text}
+              className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/90 px-4 py-2.5 text-sm font-medium text-foreground shadow-sm backdrop-blur-sm"
             >
-              Start a Project With Us
-            </Button>
+              <Icon className="h-4 w-4 shrink-0 text-brand-600 dark:text-brand-400" aria-hidden />
+              {text}
+            </div>
+          ))}
+        </div>
+
+        <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Story + CTAs */}
+          <div className="lg:col-span-6 xl:col-span-7">
+            <h3 className="font-heading text-xl font-bold text-foreground md:text-2xl">Why clients choose us</h3>
+            <div className="mt-6 space-y-5 text-base leading-relaxed text-muted-foreground md:text-lg">
+              <p>
+                <strong className="font-semibold text-foreground">Arshionix</strong> builds sites for{" "}
+                <Link href="/healthcare-websites" className="font-medium text-brand-600 underline-offset-4 transition-colors hover:text-brand-700 hover:underline dark:text-brand-400 dark:hover:text-brand-300">
+                  healthcare
+                </Link>
+                ,{" "}
+                <Link href="/business-websites" className="font-medium text-brand-600 underline-offset-4 transition-colors hover:text-brand-700 hover:underline dark:text-brand-400 dark:hover:text-brand-300">
+                  local business
+                </Link>
+                ,{" "}
+                <Link href="/school-websites" className="font-medium text-brand-600 underline-offset-4 transition-colors hover:text-brand-700 hover:underline dark:text-brand-400 dark:hover:text-brand-300">
+                  schools
+                </Link>
+                , and{" "}
+                <Link href="/personal-branding-websites" className="font-medium text-brand-600 underline-offset-4 transition-colors hover:text-brand-700 hover:underline dark:text-brand-400 dark:hover:text-brand-300">
+                  personal brands
+                </Link>
+                . Same team, same quality bar — different playbooks so your site fits how you actually win work.
+              </p>
+              <p>
+                We&apos;re not a “we do everything” agency. If you match one of our tracks, you get a clear path: what
+                we build, how we work, and what happens when you reach out — no vague retainers or mystery pricing
+                dance.
+              </p>
+            </div>
+
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Button size="lg" className="group rounded-xl shadow-lg shadow-brand-500/15" asChild>
+                <Link href="/contact">
+                  Get in touch
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" className="rounded-xl border-border bg-background/50" asChild>
+                <Link href="/services">
+                  Browse services
+                  <ArrowUpRight className="ml-2 h-4 w-4 opacity-70" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="ghost" className="rounded-xl text-muted-foreground hover:text-foreground" asChild>
+                <Link href="/about">More about our story</Link>
+              </Button>
+            </div>
           </div>
+
+          {/* Four doors */}
+          <div className="lg:col-span-6 xl:col-span-5">
+            <p className="mb-4 text-center text-sm font-semibold uppercase tracking-wider text-muted-foreground lg:text-left">
+              Four ways we help
+            </p>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {serviceVerticals.map((v) => {
+                const Icon = slugIcon[v.slug as keyof typeof slugIcon] ?? LayoutGrid;
+                return (
+                  <Link
+                    key={v.slug}
+                    href={`/${v.slug}`}
+                    className="group relative flex items-center gap-4 rounded-2xl border border-border bg-card p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-500/35 hover:shadow-lg hover:shadow-brand-500/10 md:p-5"
+                  >
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-violet-600 text-white shadow-md shadow-brand-500/20 ring-1 ring-white/10 transition-transform group-hover:scale-[1.03]">
+                      <Icon className="h-6 w-6" strokeWidth={2} aria-hidden />
+                    </span>
+                    <span className="min-w-0 flex-1 text-left">
+                      <span className="block font-heading text-sm font-bold text-foreground group-hover:text-brand-600 dark:group-hover:text-brand-400 md:text-base">
+                        {v.navLabel}
+                      </span>
+                      <span className="mt-0.5 block text-xs text-muted-foreground line-clamp-2">{v.headline}</span>
+                    </span>
+                    <ArrowRight
+                      className="h-5 w-5 shrink-0 text-muted-foreground/60 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-500"
+                      aria-hidden
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Pillars */}
+        <div className="mx-auto mt-16 grid max-w-5xl gap-6 border-t border-border/80 pt-16 md:mt-20 md:grid-cols-3 md:gap-8 md:pt-20">
+          {pillars.map(({ icon: Icon, title, desc }) => (
+            <div
+              key={title}
+              className="relative rounded-2xl border border-border/80 bg-card/60 p-6 text-center md:p-8 md:text-left"
+            >
+              <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/10 text-brand-600 md:mx-0 dark:text-brand-400">
+                <Icon className="h-5 w-5" strokeWidth={2} aria-hidden />
+              </div>
+              <h4 className="font-heading text-lg font-bold text-foreground">{title}</h4>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">{desc}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

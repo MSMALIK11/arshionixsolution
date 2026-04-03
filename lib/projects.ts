@@ -18,6 +18,8 @@ export type Project = {
   showYourAnalysis?: boolean;
   /** Use full product-style detail page (e.g. Boliye-style sections) */
   showFullProductPage?: boolean;
+  /** Show on homepage featured section (default: true when slug exists) */
+  featured?: boolean;
 };
 
 export const projects: Project[] = [
@@ -30,8 +32,8 @@ export const projects: Project[] = [
     outcome: "Faster deployment · Lower cost per contact · Full control over flows",
     tags: ["Next.js", "tRPC", "Prisma", "AI/LLM", "Voice", "React Flow"],
     icon: "Layers",
-    color: "from-violet-400 to-violet-600",
-    bg: "from-violet-500/10 to-violet-600/5",
+    color: "from-brand-500 to-violet-600 dark:from-violet-400 dark:to-violet-600",
+    bg: "bg-gradient-to-br from-brand-500/10 to-violet-600/5 dark:from-violet-500/10 dark:to-violet-600/5",
     liveUrl: null,
     screenshot: "",
     longDescription:
@@ -63,8 +65,8 @@ export const projects: Project[] = [
     outcome: "Next.js app · Responsive layout",
     tags: ["Next.js", "MongoDB", "Tailwind", "App Router"],
     icon: "Layers",
-    color: "from-violet-400 to-violet-600",
-    bg: "from-violet-500/10 to-violet-600/5",
+    color: "from-brand-500 to-violet-600 dark:from-violet-400 dark:to-violet-600",
+    bg: "bg-gradient-to-br from-brand-500/10 to-violet-600/5 dark:from-violet-500/10 dark:to-violet-600/5",
     liveUrl: null,
     screenshot: null,
     comingSoon: true,
@@ -89,4 +91,9 @@ export function getProductsForNavigation(): { title: string; slug: string; href:
       slug: p.slug!,
       href: p.comingSoon ? null : `/portfolio/${p.slug}`,
     }));
+}
+
+/** Projects to highlight on the homepage (has slug, featured !== false) */
+export function getFeaturedProjects(): Project[] {
+  return projects.filter((p) => p.slug && p.featured !== false);
 }

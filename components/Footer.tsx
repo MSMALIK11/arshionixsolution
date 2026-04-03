@@ -1,105 +1,49 @@
-"use client";
-
 import Link from "next/link";
-import { Github, Linkedin, Twitter } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { site } from "@/lib/site";
 import BrandLogo from "@/components/BrandLogo";
+import { serviceVerticals } from "@/lib/service-verticals";
 
-const footerLinks: Record<string, { label: string; href: string; external?: boolean }[]> = {
+const footerLinks: Record<string, { label: string; href: string }[]> = {
   Services: [
-    { label: "Web Development", href: "/services" },
-    { label: "Software Development", href: "/services" },
-    { label: "Android Development", href: "/services" },
-    { label: "UI/UX Design", href: "/services" },
+    ...serviceVerticals.map((v) => ({
+      label: v.navLabel,
+      href: `/${v.slug}`,
+    })),
+    { label: "All services", href: "/services" },
   ],
   Company: [
-    { label: "About Us", href: "/about" },
-    { label: "Our Work", href: "/portfolio" },
-    { label: "Process", href: "/#process" },
+    { label: "About", href: "/about" },
+    { label: "Work", href: "/portfolio" },
     { label: "Contact", href: "/contact" },
   ],
-  Connect: [
-    { label: "GitHub", href: site.social.github, external: true },
-    { label: "LinkedIn", href: site.social.linkedin, external: true },
-    { label: "Twitter", href: site.social.twitter, external: true },
-    { label: "Email", href: "mailto:info@arshionix.com", external: true },
-  ],
 };
-export default function Footer() {
-  const handleNav = (href: string) => {
-    if (href.startsWith("#")) {
-      const el = document.querySelector(href);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    } else if (href.startsWith("mailto:") || href.startsWith("http")) {
-      window.open(href, "_blank", "noopener,noreferrer");
-    }
-  };
 
+export default function Footer() {
   return (
     <footer className="relative border-t border-border bg-card/50 backdrop-blur-sm">
       <div className="container mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-4 gap-12">
-          <div className="md:col-span-1">
+        <div className="grid gap-12 md:grid-cols-3">
+          <div>
             <div className="mb-4">
               <BrandLogo variant="full" />
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Arshionix is a full-service digital agency building world-class web apps, software, mobile apps, and UI/UX designs for clients worldwide.
+              Healthcare websites, business websites, schools, and personal branding — one studio, clear service pages,
+              honest scope.
             </p>
-            <div className="flex gap-3">
-              <a
-                href={site.social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-muted-foreground hover:text-brand-400 hover:border-brand-400/50 hover:bg-brand-500/5 transition-all"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-              <a
-                href={site.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-muted-foreground hover:text-brand-400 hover:border-brand-400/50 hover:bg-brand-500/5 transition-all"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href={site.social.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-                className="w-9 h-9 rounded-lg border border-border flex items-center justify-center text-muted-foreground hover:text-brand-400 hover:border-brand-400/50 hover:bg-brand-500/5 transition-all"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
-            </div>
           </div>
 
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
               <h4 className="font-heading font-bold text-sm mb-4 text-foreground">{category}</h4>
               <ul className="space-y-2.5">
-                {links.map(({ label, href, external }) => (
+                {links.map(({ label, href }) => (
                   <li key={label}>
-                    {external || href.startsWith("#") || href.startsWith("mailto:") ? (
-                      <Button
-                        variant="ghost"
-                        className="text-muted-foreground hover:text-brand-400 p-0 h-auto font-normal text-sm"
-                        onClick={() => handleNav(href)}
-                      >
-                        {label}
-                      </Button>
-                    ) : (
-                      <Link
-                        href={href}
-                        className="text-muted-foreground hover:text-brand-400 text-sm font-normal transition-colors"
-                      >
-                        {label}
-                      </Link>
-                    )}
+                    <Link
+                      href={href}
+                      className="text-muted-foreground hover:text-brand-400 text-sm font-normal transition-colors"
+                    >
+                      {label}
+                    </Link>
                   </li>
                 ))}
               </ul>

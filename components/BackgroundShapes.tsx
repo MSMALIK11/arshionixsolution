@@ -13,7 +13,7 @@ export default function BackgroundShapes() {
       <div
         className="absolute top-1/2 -left-48 w-[400px] h-[400px] rounded-full opacity-[0.06] dark:opacity-[0.05] blur-3xl shape-float-slow"
         style={{
-          background: "linear-gradient(135deg, #06b6d4 0%, #6366f1 100%)",
+          background: "linear-gradient(135deg, #6366f1 0%, #7c3aed 100%)",
         }}
       />
       <div
@@ -25,7 +25,7 @@ export default function BackgroundShapes() {
       {/* Small geometric orbs - extra shape design */}
       <div
         className="absolute top-[20%] left-[15%] w-32 h-32 rounded-full opacity-[0.06] dark:opacity-[0.05] blur-2xl shape-float-slow"
-        style={{ background: "linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)" }}
+        style={{ background: "linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)" }}
       />
       <div
         className="absolute bottom-[30%] right-[20%] w-40 h-40 rounded-full opacity-[0.05] dark:opacity-[0.04] blur-2xl shape-float"
