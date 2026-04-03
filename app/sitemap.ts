@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/blog";
 import { getAllProjectSlugs } from "@/lib/projects";
+import { getCanonicalSiteUrl } from "@/lib/seo";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://arshionix.com";
+const BASE_URL = getCanonicalSiteUrl();
 
 const staticPages: { url: string; changeFrequency: "weekly" | "monthly"; priority: number }[] = [
   { url: BASE_URL, changeFrequency: "weekly", priority: 1 },

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
+import { getCanonicalSiteUrl, blogPostJsonLd } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 
@@ -16,13 +17,32 @@ export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
+  const base = getCanonicalSiteUrl();
+  const url = `${base}/blog/${slug}`;
+  const published = new Date(post.date).toISOString();
   return {
     title: post.title,
     description: post.description,
+    alternates: { canonical: url },
     openGraph: {
+      type: "article",
+      url,
+      siteName: "Arshionix",
+      locale: "en_US",
       title: `${post.title} | Arshionix Blog`,
       description: post.description,
+      publishedTime: published,
+      modifiedTime: published,
+      authors: ["Arshionix"],
+      section: post.category,
+      images: [{ url: `${base}/opengraph-image`, width: 1200, height: 630, alt: post.title }],
     },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
+    robots: { index: true, follow: true },
   };
 }
 
@@ -31,9 +51,16 @@ export default async function BlogPostPage({ params }: Props) {
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
+  const siteUrl = getCanonicalSiteUrl();
+  const structuredData = blogPostJsonLd(siteUrl, slug, post);
+
   return (
     <div className="min-h-screen">
       <Navbar />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <main>
         <article className="section-padding pt-28">
           <div className="container mx-auto px-6 max-w-3xl">

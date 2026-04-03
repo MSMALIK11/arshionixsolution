@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
+import { getCanonicalSiteUrl } from "@/lib/seo";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://arshionix.com";
+const BASE_URL = getCanonicalSiteUrl();
 
 export default function robots(): MetadataRoute.Robots {
   return {

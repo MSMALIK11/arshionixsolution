@@ -2,12 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /**
-   * Default dev uses Turbopack (`npm run dev`) to avoid webpack dev disk cache corruption
-   * (missing chunks like ./611.js, broken _document, ENOENT pack.gz). Use `npm run dev:webpack` only if needed.
-   * If `.next` is deleted or `next build` runs while an old `next dev` is still running, always stop dev and
-   * run `npm run dev:clean` — do not run build and dev on the same folder at the same time.
+   * Default dev uses Turbopack (`npm run dev`).
    *
-   * Webpack in-memory cache applies when using `dev:webpack` only.
+   * If you see ENOENT on `.next/.../_buildManifest.js.tmp.*`, missing webpack chunks, or `routes-manifest`:
+   * stop every `next dev` / `next start` for this repo, then `npm run dev:clean` (one terminal only).
+   * Never run `next build` while `next dev` is running on the same folder. Keep the project outside iCloud/Drive sync if possible.
+   *
+   * Fallback: `npm run dev:webpack` (webpack + in-memory cache below).
    */
   webpack: (config, { dev }) => {
     if (dev) {

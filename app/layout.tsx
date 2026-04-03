@@ -5,8 +5,10 @@ import Analytics from "@/components/Analytics";
 import GetInTouchModal from "@/components/GetInTouchModal";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { organizationSameAsUrls } from "@/lib/site";
+import { getCanonicalSiteUrl, searchEngineVerification } from "@/lib/seo";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://arshionix.com";
+const SITE_URL = getCanonicalSiteUrl();
+const seoVerification = searchEngineVerification();
 
 const DEFAULT_TITLE =
   "Healthcare, Business, Schools & Personal Brand Websites | Arshionix";
@@ -89,9 +91,7 @@ export const metadata: Metadata = {
       follow: true,
     },
   },
-  verification: {
-    // Add when you have them: google: "google-site-verification-code", yandex: "yandex-verification-code",
-  },
+  ...(seoVerification ? { verification: seoVerification } : {}),
   alternates: {
     canonical: SITE_URL,
   },
@@ -105,7 +105,7 @@ function buildStructuredData(siteUrl: string) {
     "@id": `${siteUrl}/#organization`,
     name: "Arshionix",
     url: siteUrl,
-    logo: { "@type": "ImageObject", url: `${siteUrl}/og-image.png` },
+    logo: { "@type": "ImageObject", url: `${siteUrl}/icon.svg` },
     description:
       "We build high-trust websites for healthcare practices, local businesses, schools, and personal brands — with dedicated service pages and clear positioning.",
     foundingDate: "2022",
@@ -135,6 +135,7 @@ function buildStructuredData(siteUrl: string) {
           "Websites for healthcare practices, local businesses, schools, and personal brands — mobile-first, SEO-ready, and built to convert.",
         publisher: { "@id": `${siteUrl}/#organization` },
         inLanguage: "en-US",
+        image: `${siteUrl}/opengraph-image`,
       },
       {
         "@type": "Service",
@@ -165,11 +166,11 @@ export default function RootLayout({
   const structuredData = buildStructuredData(SITE_URL);
 
   return (
-    <html lang="en" className="light" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){var r=document.documentElement.classList;r.remove('light','dark');var t=localStorage.getItem('arshionix-theme');r.add(t==='dark'?'dark':'light');})();`,
+            __html: `(function(){var r=document.documentElement.classList;r.remove('light','dark');var t=localStorage.getItem('arshionix-theme');r.add(t==='light'?'light':'dark');})();`,
           }}
         />
       </head>
