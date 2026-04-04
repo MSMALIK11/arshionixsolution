@@ -16,6 +16,9 @@ import BackgroundShapes from "@/components/BackgroundShapes";
 /** Set to true when you want “Client voices” / testimonials back on the homepage. */
 const SHOW_TESTIMONIALS = false;
 
+/** Set to true when you want the homepage “Featured work” strip back. */
+const SHOW_FEATURED_WORK = false;
+
 export default function Home() {
   return (
     <div className="min-h-hero relative">
@@ -30,9 +33,11 @@ export default function Home() {
           <ScrollReveal delay={0.1}>
             <Services />
           </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <FeaturedProjects />
-          </ScrollReveal>
+          {SHOW_FEATURED_WORK && (
+            <ScrollReveal delay={0.1}>
+              <FeaturedProjects />
+            </ScrollReveal>
+          )}
           <ScrollReveal delay={0.1}>
             <About />
           </ScrollReveal>

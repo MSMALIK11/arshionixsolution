@@ -2,13 +2,25 @@ import Link from "next/link";
 import { Stethoscope, Store, UserRound, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const audiences = [
+type Audience = {
+  icon: typeof Stethoscope;
+  title: string;
+  description: string;
+  href: string;
+  cta: string;
+  serviceHref?: string;
+  serviceLabel?: string;
+};
+
+const audiences: Audience[] = [
   {
     icon: Stethoscope,
     title: "Clinics & doctors",
     description: "Practices that need a trustworthy online presence, clear services, and easy ways for patients to connect.",
-    href: "/healthcare-websites",
-    cta: "Healthcare websites",
+    href: "/portfolio/arshionix-healthcare",
+    cta: "Arshionix Healthcare",
+    serviceHref: "/healthcare-websites",
+    serviceLabel: "Healthcare website services",
   },
   {
     icon: Store,
@@ -51,7 +63,7 @@ export default function WhoWeWorkWith() {
         </div>
 
         <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
-          {audiences.map(({ icon: Icon, title, description, href, cta }) => (
+          {audiences.map(({ icon: Icon, title, description, href, cta, serviceHref, serviceLabel }) => (
             <div
               key={title}
               className="rounded-2xl border border-border bg-card p-6 md:p-8 flex flex-col card-webteck card-webteck-hover transition-shadow"
@@ -61,9 +73,19 @@ export default function WhoWeWorkWith() {
               </div>
               <h3 className="font-heading text-xl font-bold mb-2">{title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-6">{description}</p>
-              <Button variant="outline" className="rounded-xl border-border w-full sm:w-auto" asChild>
-                <Link href={href}>{cta}</Link>
-              </Button>
+              <div className="flex flex-col gap-2 items-stretch sm:items-start">
+                <Button variant="outline" className="rounded-xl border-border w-full sm:w-auto" asChild>
+                  <Link href={href}>{cta}</Link>
+                </Button>
+                {serviceHref && serviceLabel ? (
+                  <Link
+                    href={serviceHref}
+                    className="text-xs font-medium text-muted-foreground hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  >
+                    {serviceLabel} →
+                  </Link>
+                ) : null}
+              </div>
             </div>
           ))}
         </div>

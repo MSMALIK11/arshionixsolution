@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import type { ServiceVertical } from "@/lib/service-verticals";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import VerticalFeaturedProductSection from "@/components/VerticalFeaturedProductSection";
 
 type Props = { vertical: ServiceVertical };
 
@@ -45,11 +46,13 @@ export default function ServiceVerticalPage({ vertical }: Props) {
   const bookExternal = Boolean(site.calendly);
 
   const hasExtendedFlow = Boolean(vertical.howWeHelp || vertical.whatWeBuild);
+  const showJumpNav = hasExtendedFlow || Boolean(vertical.featuredProduct);
   const featuresTitle = vertical.featuresTitle ?? "What you get";
   const featuresSubhead =
     vertical.featuresSubhead ?? "Features we focus on for this type of project.";
 
   const jumpLinks = [
+    ...(vertical.featuredProduct ? [{ href: "#featured-product", label: "Featured product" }] : []),
     { href: "#challenge", label: "Challenge" },
     { href: "#approach", label: "Approach" },
     ...(vertical.howWeHelp ? [{ href: "#how-we-help", label: "How we help" }] : []),
@@ -143,7 +146,7 @@ export default function ServiceVerticalPage({ vertical }: Props) {
               </aside>
             </div>
 
-            {hasExtendedFlow && (
+            {showJumpNav && (
               <nav
                 className="mt-12 border-t border-border/80 pt-8"
                 aria-label="On this page"
@@ -165,6 +168,8 @@ export default function ServiceVerticalPage({ vertical }: Props) {
             )}
           </div>
         </section>
+
+        {vertical.featuredProduct ? <VerticalFeaturedProductSection product={vertical.featuredProduct} /> : null}
 
         {/* Challenge */}
         <section id="challenge" className="scroll-mt-24 border-b border-border/60 bg-muted/15">

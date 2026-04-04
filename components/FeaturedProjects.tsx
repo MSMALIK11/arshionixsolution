@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Globe, Layers, Palette, Smartphone, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { getFeaturedProjects } from "@/lib/projects";
+import { getFeaturedProjects, getProjectCardHref } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
 
 const iconMap = {
@@ -16,7 +16,7 @@ const iconMap = {
 
 function FeaturedCard({ project }: { project: Project }) {
   const Icon = iconMap[project.icon as keyof typeof iconMap] ?? Layers;
-  const href = project.slug && !project.comingSoon ? `/portfolio/${project.slug}` : null;
+  const href = getProjectCardHref(project);
 
   const inner = (
     <>

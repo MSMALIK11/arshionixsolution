@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
   /** No /dashboard in this app — send mistaken URLs to home (hosting/DNS issues are separate). */
   async redirects() {
     return [
+      {
+        source: "/portfolio/healthcare-websites",
+        destination: "/portfolio/arshionix-healthcare",
+        permanent: false,
+      },
       { source: "/dashboard", destination: "/", permanent: false },
       { source: "/dashboard/:path*", destination: "/", permanent: false },
       { source: "/dashbord", destination: "/", permanent: false },

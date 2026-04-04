@@ -2,11 +2,9 @@ import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
-  CheckCircle2,
   Clock,
   GraduationCap,
   LayoutGrid,
-  MessageCircle,
   Sparkles,
   Stethoscope,
   Store,
@@ -27,24 +25,6 @@ const trustChips = [
   { icon: Clock, text: "Reply within 24 hours" },
   { icon: Target, text: "Clear scope before kickoff" },
   { icon: Sparkles, text: "Mobile-first & fast" },
-];
-
-const pillars = [
-  {
-    icon: MessageCircle,
-    title: "Straight talk",
-    desc: "We tell you what we do — and what we don’t — so you’re never guessing what you’re buying.",
-  },
-  {
-    icon: CheckCircle2,
-    title: "Structured offers",
-    desc: "Each audience has its own page: problem, approach, deliverables, and how to book a call.",
-  },
-  {
-    icon: ArrowRight,
-    title: "One next step",
-    desc: "Contact or book a call. No funnels, no runaround — just a clear path when you’re ready.",
-  },
 ];
 
 export default function About() {
@@ -171,22 +151,6 @@ export default function About() {
               })}
             </div>
           </div>
-        </div>
-
-        {/* Pillars */}
-        <div className="mx-auto mt-16 grid max-w-5xl gap-6 border-t border-border/80 pt-16 md:mt-20 md:grid-cols-3 md:gap-8 md:pt-20">
-          {pillars.map(({ icon: Icon, title, desc }) => (
-            <div
-              key={title}
-              className="relative rounded-2xl border border-border/80 bg-card/60 p-6 text-center md:p-8 md:text-left"
-            >
-              <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/10 text-brand-600 md:mx-0 dark:text-brand-400">
-                <Icon className="h-5 w-5" strokeWidth={2} aria-hidden />
-              </div>
-              <h4 className="font-heading text-lg font-bold text-foreground">{title}</h4>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">{desc}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { ExternalLink, Globe, Smartphone, Layers, Palette, Sparkles, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { projects } from "@/lib/projects";
+import { projects, getProjectCardHref } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
 
 const categories = ["All", "Web", "Software", "Android", "UI/UX"];
@@ -41,8 +41,9 @@ const cardVariants = {
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const Icon = iconMap[project.icon as keyof typeof iconMap] ?? Globe;
-  const { title, category, description, outcome, tags, color, bg, liveUrl, screenshot, slug, comingSoon } = project;
-  const hasDetail = Boolean(slug) && !comingSoon;
+  const { title, category, description, outcome, tags, color, bg, liveUrl, screenshot, comingSoon } = project;
+  const detailHref = getProjectCardHref(project);
+  const hasDetail = Boolean(detailHref);
   const isComingSoon = Boolean(comingSoon);
   const showComingSoonBadge = !hasDetail || isComingSoon;
   const accentClass = categoryAccent[category] ?? "card-accent-indigo";
@@ -170,7 +171,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       className="h-full"
     >
       {hasDetail ? (
-        <Link href={`/portfolio/${slug!}`} className={cardClass}>
+        <Link href={detailHref!} className={cardClass}>
           {content}
         </Link>
       ) : (

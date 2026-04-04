@@ -7,6 +7,19 @@ export type ServiceVerticalSection = {
   items: ServiceFeature[];
 };
 
+/** Optional “built product” callout on a vertical page (e.g. Arshionix Healthcare on healthcare-websites). */
+export type VerticalFeaturedProduct = {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  highlights: ServiceFeature[];
+  images: { src: string; alt: string; caption: string }[];
+  portfolioSlug: string;
+  /** Default: grid of figures. Use `carousel` for a single spotlight (e.g. healthcare screenshots). */
+  imageGalleryLayout?: "grid" | "carousel";
+};
+
 export type ServiceVertical = {
   /** URL segment e.g. healthcare-websites */
   slug: string;
@@ -27,6 +40,8 @@ export type ServiceVertical = {
   /** Override default “What you get” heading and blurb */
   featuresTitle?: string;
   featuresSubhead?: string;
+  /** In-house product showcase (screenshots + link to portfolio) */
+  featuredProduct?: VerticalFeaturedProduct;
 };
 
 export const healthcareVertical: ServiceVertical = {
@@ -121,6 +136,60 @@ export const healthcareVertical: ServiceVertical = {
   featuresTitle: "Everything your website needs to convert patients",
   featuresSubhead:
     "We focus on the essentials that directly impact trust, patient experience, and appointment bookings.",
+
+  featuredProduct: {
+    eyebrow: "Featured product",
+    title: "Arshionix Healthcare",
+    subtitle: "Multi-tenant hospital appointments & staff dashboard",
+    description:
+      "A production-ready healthcare SaaS product we ship and extend for clinics: public patient booking, branded staff dashboards, week and day appointment views, doctor and patient directories, CSV export, activity logs, reminders, and role-based access — built with Next.js, MongoDB, and a modern UI patients and admins can trust.",
+    highlights: [
+      {
+        title: "Patient booking & staff workflows",
+        description:
+          "Online requests with status workflow (pending → approved / declined / completed), day board and week list, and quick in-person scheduling from the dashboard.",
+      },
+      {
+        title: "Operations-ready",
+        description:
+          "Per-hospital branding, analytics-style overview, search, exports, print-friendly day sheets, and audit-friendly activity — designed for real front-desk use.",
+      },
+      {
+        title: "Yours to deploy or customize",
+        description:
+          "Use it as a reference build, white-label baseline, or ask us to tailor flows, integrations, and hosting for your markets.",
+      },
+    ],
+    images: [
+      {
+        src: "/portfolio/arshionix-healthcare-home.png",
+        alt: "Branded hospital marketing homepage with hero, book appointment, and trust highlights",
+        caption: "Public site — hero, emergency strip, and clear patient paths",
+      },
+      {
+        src: "/portfolio/arshionix-healthcare-services.png",
+        alt: "Services directory grid with departments and link to specialists",
+        caption: "Services — department catalog tied to your clinical structure",
+      },
+      {
+        src: "/portfolio/arshionix-healthcare-booking-flow.png",
+        alt: "Patient booking flow with doctor, week picker, time slots, and contact fields",
+        caption: "Booking — doctor, day, time, and details in a few taps",
+      },
+      {
+        src: "/portfolio/arshionix-healthcare-dashboard.png",
+        alt: "Staff dashboard overview with stats, charts, and upcoming appointments",
+        caption: "Staff dashboard — workload, trends, and schedule at a glance",
+      },
+      {
+        src: "/portfolio/arshionix-healthcare-appointments.png",
+        alt: "Appointments week list with doctor and patient rows",
+        caption: "Appointments — week list, filters, export, and quick add",
+      },
+    ],
+    portfolioSlug: "arshionix-healthcare",
+    imageGalleryLayout: "carousel",
+  },
 
   features: [
     {

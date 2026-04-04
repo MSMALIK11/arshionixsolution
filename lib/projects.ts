@@ -20,9 +20,31 @@ export type Project = {
   showFullProductPage?: boolean;
   /** Show on homepage featured section (default: true when slug exists) */
   featured?: boolean;
+  /**
+   * Use for homepage / portfolio card links when the detail URL must not be derived from `slug`
+   * (e.g. avoid confusion with service vertical paths like /healthcare-websites).
+   */
+  featuredHref?: string;
 };
 
 export const projects: Project[] = [
+  {
+    slug: "arshionix-healthcare",
+    title: "Arshionix Healthcare",
+    category: "Product",
+    description:
+      "Multi-tenant hospital SaaS: public patient booking, branded staff dashboards, week and day appointment views, doctors and patients, exports, activity logs, reminders, and admin vs staff roles — Next.js, MongoDB, and a UI built for real clinic workflows.",
+    outcome: "Ship faster · White-label ready · Extend with your integrations",
+    tags: ["Next.js", "MongoDB", "MUI", "Multi-tenant", "App Router", "Healthcare"],
+    icon: "Smartphone",
+    color: "from-rose-500 to-brand-600 dark:from-rose-400 dark:to-brand-600",
+    bg: "bg-gradient-to-br from-rose-500/10 to-brand-600/5 dark:from-rose-500/10 dark:to-brand-600/5",
+    liveUrl: null,
+    screenshot: "/portfolio/arshionix-healthcare-home.png",
+    longDescription:
+      "Arshionix Healthcare is an in-house product we use as a baseline for clinics and small hospitals: a branded public experience (homepage, services by department, multi-step booking) plus a secure staff dashboard scoped by tenant — appointments (week list + day board), doctor and patient directories, hospital settings and branding, CSV export, audit-style activity, email reminders, print-friendly day sheets, and optional patient self-service links. Built with Next.js App Router, MongoDB, JWT sessions, and MUI — designed to be customized, hosted for you, or licensed as a starting point.",
+    featuredHref: "/portfolio/arshionix-healthcare",
+  },
   {
     slug: "voice-agent-customer-support",
     title: "Voice-First Conversational AI",
@@ -74,6 +96,14 @@ export const projects: Project[] = [
   
 ];
 
+/** Card / “View project” target (featured strip, portfolio grid). */
+export function getProjectCardHref(project: Project): string | null {
+  if (project.comingSoon) return null;
+  if (project.featuredHref) return project.featuredHref;
+  if (!project.slug) return null;
+  return `/portfolio/${project.slug}`;
+}
+
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }
@@ -89,7 +119,7 @@ export function getProductsForNavigation(): { title: string; slug: string; href:
     .map((p) => ({
       title: p.title,
       slug: p.slug!,
-      href: p.comingSoon ? null : `/portfolio/${p.slug}`,
+      href: p.comingSoon ? null : getProjectCardHref(p),
     }));
 }
 
